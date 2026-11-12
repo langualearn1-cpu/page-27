@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2: Listening and Speaking - Ali's Daily Routine! (Page 27)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Fredoka', 'Cairo', sans-serif;
+            background-color: #f6fbf6;
+            background-image: 
+                radial-gradient(#bbf7d0 1.2px, transparent 1.2px), 
+                radial-gradient(#fde68a 1.2px, #f6fbf6 1.2px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            overflow-x: hidden;
+        }
+
+        .en-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .ar-font {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* بالونات المحادثة مع توسيط تام وتكبير الخطوط */
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border: 3px solid #0f766e;
+            border-radius: 18px;
+            box-shadow: 0 4px 0 #0f766e;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speech-bubble:hover {
+            border-color: #0d9488;
+            box-shadow: 0 6px 0 #0f766e;
+        }
+
+        /* تظليل ثابت واضح وغير متحرك على الجملة عند القراءة */
+        .speech-bubble.active-speech {
+            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%) !important;
+            border-color: #15803d !important;
+            box-shadow: 0 4px 0 #15803d, 0 0 0 3px #86efac !important;
+        }
+
+        .sentence-text {
+            display: inline-block;
+            border-radius: 8px;
+            padding: 3px 8px;
+            text-align: center;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .speech-bubble.active-speech .sentence-text {
+            background-color: transparent !important;
+            color: #064e3b !important;
+            box-shadow: none !important;
+        }
+
+        /* تظليل كامل الجملة باللون الأخضر بشكل ثابت عند القراءة في التمرين 3 */
+        #ex3QuestionsList .speech-bubble.active-speech .sentence-text {
+            background-color: #86efac !important;
+            color: #064e3b !important;
+            box-shadow: 0 0 0 3px #16a34a !important;
+            border-radius: 14px;
+            padding: 6px 16px;
+        }
+
+        /* تظليل باللون الأصفر لقطعة الروتين اليومي في التمرين 4 عند القراءة */
+        #bubble-ex4-routine.active-speech #routineSpeechText {
+            background-color: #fde047 !important;
+            color: #713f12 !important;
+            box-shadow: 0 0 0 3px #facc15 !important;
+        }
+
+        .vocab-word {
+            color: #0284c7;
+            font-weight: 900;
+        }
+
+        .comic-panel {
+            border: 3.5px solid #292524;
+            border-radius: 24px;
+            box-shadow: 0 6px 0 #292524;
+            overflow: hidden;
+            background: #ffffff;
+            transition: all 0.25s ease;
+        }
+
+        /* شارة الحروف a - f */
+        .letter-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 9999px;
+            background: #ffffff;
+            border: 2.5px solid #0f766e;
+            color: #0f766e;
+            font-weight: 900;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 0 #0f766e;
+        }
+
+        /* مربع الترقيم التفاعلي في التمرين 2 */
+        .order-select {
+            width: 46px;
+            height: 42px;
+            border: 2.5px solid #65a30d;
+            border-radius: 10px;
+            background: #ffffff;
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: #0284c7;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #65a30d;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .order-select.correct-order {
+            background-color: #dcfce7 !important;
+            border-color: #15803d !important;
+            color: #15803d !important;
+            box-shadow: 0 3px 0 #15803d !important;
+        }
+
+        .order-select.wrong-order {
+            background-color: #ffe4e6 !important;
+            border-color: #e11d48 !important;
+            color: #be123c !important;
+            box-shadow: 0 3px 0 #be123c !important;
+        }
+
+        /* خيارات التمرين 3 (ضع دائرة حول الكلمة الصحيحة) */
+        .choice-pill {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 9999px;
+            font-weight: 900;
+            color: #0284c7;
+            border: 2.5px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .choice-pill:hover {
+            background-color: #e0f2fe;
+            border-color: #7dd3fc;
+        }
+
+        .choice-pill.circled-correct {
+            background-color: #dcfce7 !important;
+            color: #15803d !important;
+            border-color: #0284c7 !important;
+            box-shadow: 0 0 0 2px #38bdf8, 0 3px 8px rgba(2, 132, 199, 0.25) !important;
+        }
+
+        .choice-pill.circled-wrong {
+            background-color: #ffe4e6 !important;
+            color: #be123c !important;
+            border-color: #f43f5e !important;
+        }
+
+        /* جدول التمرين 4 (دفتر الروتين اليومي) */
+        .routine-notebook {
+            background-color: #f5ebe0;
+            border: 3px solid #d6ccc2;
+            border-radius: 20px;
+            box-shadow: 0 8px 0 #cbb8a9;
+        }
+
+        .routine-line {
+            border-bottom: 2.5px solid #db2777;
+        }
+
+        .routine-col-divider {
+            border-right: 2.5px solid #db2777;
+        }
+
+        /* التظليل باللون الأخضر لصفوف جدول الروتين اليومي عند القراءة */
+        .routine-activity-cell {
+            border-radius: 14px;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .routine-activity-cell.active-green-highlight {
+            background: linear-gradient(180deg, #dcfce7 0%, #86efac 100%) !important;
+            box-shadow: 0 0 0 2.5px #15803d, 0 3px 0 #15803d !important;
+        }
+
+        .routine-activity-cell.active-green-highlight .routine-what-text,
+        .routine-activity-cell.active-green-highlight .routine-what-input {
+            background-color: #86efac !important;
+            color: #064e3b !important;
+            border-color: #16a34a !important;
+            box-shadow: 0 0 0 2.5px #16a34a !important;
+            border-radius: 12px;
+            padding: 4px 14px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800">
+
+    <!-- Navigation & Control Bar -->
+    <nav class="bg-white/95 backdrop-blur-md border-b-2 border-emerald-200 sticky top-0 z-40 px-4 py-2.5 shadow-sm">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-3">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-pink-500 animate-pulse"></span>
+                <span class="font-black text-slate-800 text-sm sm:text-base">Unit 2: Listening & Speaking • Page 27</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Learning Content -->
+    <main class="max-w-6xl w-full mx-auto px-3 sm:px-4 py-5 flex-grow">
+
+        <!-- Header matching Listening and Speaking Banner + Blue Mascot -->
+        <header class="relative mb-6 text-center select-none flex flex-col items-center justify-center w-full">
+            <div class="relative inline-flex items-center justify-center mb-2 mx-auto">
+                <!-- Cute Round Blue Mascot SVG from Page 27 -->
+                <div class="w-14 h-14 sm:w-16 sm:h-16 absolute -left-11 sm:-left-14 top-1/2 -translate-y-1/2 z-10 drop-shadow-md pointer-events-none">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="54" r="32" fill="#0ea5e9" stroke="#0369a1" stroke-width="3"/>
+                        <ellipse cx="44" cy="44" rx="16" ry="12" fill="#38bdf8" opacity="0.5"/>
+                        <circle cx="40" cy="46" r="6" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+                        <circle cx="41" cy="46" r="3" fill="#0f172a"/>
+                        <circle cx="60" cy="46" r="6" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+                        <circle cx="59" cy="46" r="3" fill="#0f172a"/>
+                        <path d="M44 60 Q50 66 56 60" stroke="#0f172a" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <ellipse cx="16" cy="52" rx="6" ry="4" fill="#38bdf8" stroke="#0369a1" stroke-width="2"/>
+                        <ellipse cx="84" cy="52" rx="6" ry="4" fill="#38bdf8" stroke="#0369a1" stroke-width="2"/>
+                        <ellipse cx="38" cy="86" rx="7" ry="4" fill="#0284c7"/>
+                        <ellipse cx="62" cy="86" rx="7" ry="4" fill="#0284c7"/>
+                    </svg>
+                </div>
+                <!-- Pink Listening and Speaking Banner -->
+                <div class="bg-gradient-to-r from-pink-600 to-rose-500 text-white px-7 py-2.5 rounded-3xl font-black text-2xl sm:text-4xl shadow-lg border-b-4 border-pink-800 flex items-center justify-center gap-3 text-center">
+                    <span>Listening and Speaking</span>
+                </div>
+            </div>
+
+            <div class="inline-flex items-center justify-center gap-2.5 bg-teal-700 text-white px-8 py-2 rounded-2xl font-black text-lg sm:text-2xl shadow-md border-2 border-teal-900 my-1 mx-auto text-center">
+                <span>⏰</span>
+                <span class="text-center">Ali's Daily Routine & Chores!</span>
+                <span>🧹</span>
+            </div>
+            <p dir="rtl" class="ar-font font-extrabold text-teal-800 text-sm sm:text-base mt-1 text-center mx-auto">
+                الاستماع والتحدث: الروتين اليومي والأعمال المنزلية لعلي • انقر للاستماع بالتظليل الثابت!
+            </p>
+
+            <!-- Quick Jump Activity Badges -->
+            <div class="flex items-center justify-center gap-2.5 sm:gap-3 mt-3 flex-wrap">
+                <a href="#ex-1" class="bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-xs transition">
+                    <span class="bg-pink-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">1</span>
+                    <span>Look & Tell</span>
+                </a>
+                <a href="#ex-2" class="bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-xs transition">
+                    <span class="bg-pink-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">2</span>
+                    <i class="fa-solid fa-headphones text-pink-600"></i>
+                    <span>Listen & Number (a-f)</span>
+                </a>
+                <a href="#ex-3" class="bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-xs transition">
+                    <span class="bg-pink-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">3</span>
+                    <i class="fa-solid fa-headphones text-pink-600"></i>
+                    <span>Listen & Choose (1-5)</span>
+                </a>
+                <a href="#ex-4" class="bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-xs transition">
+                    <span class="bg-pink-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">4</span>
+                    <span>Your Daily Routine</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- =================================================================== -->
+        <!-- EXERCISE 1: Look at the pictures in Exercise 2. Tell your partner   -->
+        <!-- =================================================================== -->
+        <section id="ex-1" class="mb-7 bg-white rounded-3xl p-4 sm:p-6 border-3 border-teal-600 shadow-lg">
+            <div class="flex flex-col items-center justify-center text-center gap-2.5 mb-4 border-b border-slate-100 pb-3">
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <span class="w-8 h-8 rounded-full bg-pink-600 text-white font-black text-lg flex items-center justify-center shadow-sm">1</span>
+                    <h2 class="text-lg sm:text-2xl font-black text-slate-900 text-center">
+                        Look at the pictures in Exercise 2. Tell your partner what Ali is doing.
+                    </h2>
+                </div>
+                <span dir="rtl" class="ar-font text-xs sm:text-sm font-extrabold text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
+                    انظر إلى الصور في التمرين ٢، وأخبر زميلك ماذا يفعل علي
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                <!-- Left Child + Green Speech Bubble -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 bg-lime-50/70 p-4 rounded-2xl border-2 border-lime-300">
+                    <div class="relative w-24 h-24 rounded-2xl bg-gradient-to-b from-amber-100 to-amber-200 border-2 border-lime-500 shadow-md flex-shrink-0 overflow-hidden flex items-center justify-center">
+                        <div id="ex1BoyAAvatarBox" class="w-full h-full flex items-center justify-center">
+                            <!-- Boy resting chin on hand SVG -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <rect width="100" height="100" fill="#fef3c7"/>
+                                <circle cx="50" cy="44" r="22" fill="#d97742"/>
+                                <path d="M28 38 Q50 16 72 38 Q68 24 28 38 Z" fill="#1e293b"/>
+                                <circle cx="42" cy="44" r="2.8" fill="#1e293b"/>
+                                <circle cx="58" cy="44" r="2.8" fill="#1e293b"/>
+                                <path d="M43 54 Q50 59 57 54" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                                <rect x="26" y="68" width="48" height="32" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                <ellipse cx="48" cy="68" rx="10" ry="6" fill="#d97742"/>
+                            </svg>
+                        </div>
+                        <label for="upload-photo-ex1-a" class="cursor-pointer absolute top-1 right-1 z-10 w-3.5 h-3.5 rounded-full bg-white/90 hover:bg-lime-50 text-lime-700 border border-lime-400 shadow-2xs flex items-center justify-center text-[7px] transition opacity-80 hover:opacity-100" title="إضافة وحفظ صورة">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="upload-photo-ex1-a" accept="image/*" class="hidden" onchange="handleEx1AvatarPhotoUpload(event, 'a')">
+                    </div>
+                    <div id="bubble-ex1-a" class="speech-bubble flex-1 p-4 border-lime-600 cursor-default" style="border-color:#65a30d; box-shadow: 0 4px 0 #65a30d;">
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <span class="text-xs font-black uppercase bg-lime-100 text-lime-800 px-2.5 py-0.5 rounded-full">Partner A</span>
+                        </div>
+                        <p class="sentence-text text-lg sm:text-xl font-black text-slate-900">
+                            In picture A, Ali is ...
+                        </p>
+                        <p dir="rtl" class="ar-font text-xs sm:text-sm font-bold text-lime-950 mt-1">
+                            في الصورة (A)، علي ...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Child with Glasses + Pink Speech Bubble -->
+                <div class="flex flex-col sm:flex-row-reverse items-center gap-4 bg-pink-50/70 p-4 rounded-2xl border-2 border-pink-300">
+                    <div class="relative w-24 h-24 rounded-2xl bg-gradient-to-b from-stone-200 to-stone-300 border-2 border-pink-500 shadow-md flex-shrink-0 overflow-hidden flex items-center justify-center">
+                        <div id="ex1BoyBAvatarBox" class="w-full h-full flex items-center justify-center">
+                            <!-- Boy with glasses smiling SVG -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <rect width="100" height="100" fill="#e7e5e4"/>
+                                <circle cx="50" cy="45" r="22" fill="#f5cba7"/>
+                                <path d="M27 38 Q50 15 73 38 Z" fill="#292524"/>
+                                <rect x="33" y="39" width="14" height="10" rx="3" fill="none" stroke="#1e293b" stroke-width="2.2"/>
+                                <rect x="53" y="39" width="14" height="10" rx="3" fill="none" stroke="#1e293b" stroke-width="2.2"/>
+                                <line x1="47" y1="43" x2="53" y2="43" stroke="#1e293b" stroke-width="2.2"/>
+                                <circle cx="40" cy="44" r="2.2" fill="#1e293b"/>
+                                <circle cx="60" cy="44" r="2.2" fill="#1e293b"/>
+                                <path d="M43 56 Q50 62 57 56" stroke="#9a3412" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                                <rect x="26" y="68" width="48" height="32" rx="10" fill="#1e293b"/>
+                            </svg>
+                        </div>
+                        <label for="upload-photo-ex1-b" class="cursor-pointer absolute top-1 right-1 z-10 w-3.5 h-3.5 rounded-full bg-white/90 hover:bg-pink-50 text-pink-600 border border-pink-400 shadow-2xs flex items-center justify-center text-[7px] transition opacity-80 hover:opacity-100" title="إضافة وحفظ صورة">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="upload-photo-ex1-b" accept="image/*" class="hidden" onchange="handleEx1AvatarPhotoUpload(event, 'b')">
+                    </div>
+                    <div id="bubble-ex1-b" class="speech-bubble flex-1 p-4 cursor-default" style="border-color:#db2777; box-shadow: 0 4px 0 #db2777;">
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <span class="text-xs font-black uppercase bg-pink-100 text-pink-800 px-2.5 py-0.5 rounded-full">Partner B</span>
+                        </div>
+                        <p class="sentence-text text-lg sm:text-xl font-black text-slate-900">
+                            In picture B, he is ...
+                        </p>
+                        <p dir="rtl" class="ar-font text-xs sm:text-sm font-bold text-pink-950 mt-1">
+                            في الصورة (B)، هو ...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- EXERCISE 2: Listen and number in order (Cards a to f)               -->
+        <!-- =================================================================== -->
+        <section id="ex-2" class="mb-8 bg-white rounded-3xl p-4 sm:p-6 border-3 border-teal-600 shadow-xl">
+            <div class="flex flex-col items-center justify-center text-center gap-3 mb-5 border-b-2 border-slate-100 pb-4">
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <span class="w-8 h-8 rounded-full bg-pink-600 text-white font-black text-lg flex items-center justify-center shadow-sm">2</span>
+                    <span class="px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 font-black text-xs flex items-center gap-1 border border-pink-300">
+                        <i class="fa-solid fa-headphones"></i> 2.6
+                    </span>
+                    <h2 class="text-lg sm:text-2xl font-black text-slate-900 text-center">
+                        Listen and number in order.
+                    </h2>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                    <!-- أيقونة إضافة المقطع الصوتي للتمرين 2 -->
+                    <label for="upload-audio-ex2" class="cursor-pointer px-3.5 py-2 bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-black text-xs sm:text-sm rounded-xl shadow flex items-center gap-2 transition active:scale-95" title="إضافة مقطع صوتي يعمل تلقائياً">
+                        <i class="fa-solid fa-file-audio text-base"></i>
+                        <span class="ar-font">إضافة صوت (يعمل تلقائياً) 🎵</span>
+                    </label>
+                    <input type="file" id="upload-audio-ex2" accept="audio/*" class="hidden" onchange="handleCustomAudioUpload(event, 'ex2')">
+
+                    <!-- مشغل الصوت المضاف للتمرين 2 -->
+                    <div id="custom-audio-box-ex2" onmouseenter="playSectionCustomAudio('ex2')" class="hidden items-center gap-1.5 bg-pink-50 border-2 border-pink-300 px-2.5 py-1 rounded-xl">
+                        <audio id="custom-audio-player-ex2" controls autoplay class="h-8 w-44 sm:w-56"></audio>
+                        <button onclick="removeCustomAudio('ex2')" class="w-7 h-7 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 flex items-center justify-center text-xs transition" title="حذف الصوت">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="revealExercise2Order()" class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs rounded-xl border border-amber-300 transition">
+                        إظهار الترتيب 👁️
+                    </button>
+                    <button onclick="resetExercise2Order()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition">
+                        إعادة 🔄
+                    </button>
+                    <button id="saveAllPhotosBtn" onclick="downloadHtmlWithSavedImage()" class="save-all-media-btn hidden px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-floppy-disk text-amber-300"></i>
+                        <span class="ar-font">حفظ الملف بالصور والصوت دائماً</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6 Cards Grid (a, b, c, d, e, f) -->
+            <div id="ex2CardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- EXERCISE 3: Listen again and choose the correct words (1 to 5)      -->
+        <!-- =================================================================== -->
+        <section id="ex-3" onmouseenter="autoStartEx3GeneralAudioIfNeeded()" class="mb-8 bg-white rounded-3xl p-4 sm:p-6 border-3 border-teal-600 shadow-xl">
+            <div class="flex flex-col items-center justify-center text-center gap-3 mb-5 border-b-2 border-slate-100 pb-4">
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <span class="w-8 h-8 rounded-full bg-pink-600 text-white font-black text-lg flex items-center justify-center shadow-sm">3</span>
+                    <span class="px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 font-black text-xs flex items-center gap-1 border border-pink-300">
+                        <i class="fa-solid fa-headphones"></i> 2.7
+                    </span>
+                    <h2 class="text-lg sm:text-2xl font-black text-slate-900 text-center">
+                        Listen again and choose the correct words.
+                    </h2>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                    <!-- أيقونة إضافة المقطع الصوتي للتمرين 3 -->
+                    <label for="upload-audio-ex3" class="cursor-pointer px-3.5 py-2 bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-black text-xs sm:text-sm rounded-xl shadow flex items-center gap-2 transition active:scale-95" title="إضافة مقطع صوتي يعمل تلقائياً">
+                        <i class="fa-solid fa-file-audio text-base"></i>
+                        <span class="ar-font">إضافة صوت (يعمل تلقائياً) 🎵</span>
+                    </label>
+                    <input type="file" id="upload-audio-ex3" accept="audio/*" class="hidden" onchange="handleCustomAudioUpload(event, 'ex3')">
+
+                    <!-- مشغل الصوت المضاف للتمرين 3 -->
+                    <div id="custom-audio-box-ex3" onmouseenter="playSectionCustomAudio('ex3')" class="hidden items-center gap-1.5 bg-pink-50 border-2 border-pink-300 px-2.5 py-1 rounded-xl">
+                        <audio id="custom-audio-player-ex3" controls class="h-8 w-44 sm:w-56"></audio>
+                        <button onclick="removeCustomAudio('ex3')" class="w-7 h-7 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 flex items-center justify-center text-xs transition" title="حذف الصوت">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+
+                    <span id="ex3ScoreBadge" class="bg-teal-50 text-teal-800 border border-teal-200 px-3 py-1.5 rounded-xl font-black text-xs">
+                        Score: 0 / 5 ⭐
+                    </span>
+                    <button onclick="revealExercise3Choices()" class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs rounded-xl border border-amber-300 transition">
+                        إظهار الإجابات 👁️
+                    </button>
+                    <button onclick="resetExercise3Choices()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition">
+                        إعادة 🔄
+                    </button>
+                    <button onclick="downloadHtmlWithSavedImage()" class="save-all-media-btn hidden px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-floppy-disk text-amber-300"></i>
+                        <span class="ar-font">حفظ الملف بالصور والصوت دائماً</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="ex3QuestionsList" class="flex flex-col gap-3.5">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- EXERCISE 4: Complete the day for you. Tell your partner             -->
+        <!-- =================================================================== -->
+        <section id="ex-4" class="mb-8 bg-white rounded-3xl p-4 sm:p-6 border-3 border-teal-600 shadow-xl">
+            <div class="flex flex-col items-center justify-center text-center gap-3 mb-5 border-b-2 border-slate-100 pb-4">
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <span class="w-8 h-8 rounded-full bg-pink-600 text-white font-black text-lg flex items-center justify-center shadow-sm">4</span>
+                    <h2 class="text-lg sm:text-2xl font-black text-slate-900 text-center">
+                        Complete the day for you. Then tell your partner about your daily routine.
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Left 7 Cols: The Tilted Cream & Pink Routine Table -->
+                <div class="lg:col-span-7">
+                    <div class="routine-notebook p-4 sm:p-6 transform -rotate-1">
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-12 routine-line pb-2 text-center">
+                            <div class="col-span-5 routine-col-divider font-black text-lg sm:text-xl text-pink-600">
+                                Time <span class="block text-xs ar-font text-pink-800">الوقت</span>
+                            </div>
+                            <div class="col-span-7 font-black text-lg sm:text-xl text-pink-600">
+                                What <span class="block text-xs ar-font text-pink-800">النشاط / العمل المنزلي</span>
+                            </div>
+                        </div>
+
+                        <!-- Routine Rows -->
+                        <div id="routineRowsContainer" class="divide-y-2 divide-pink-600">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 5 Cols: Girl Thinking + Green Speech Bubble + Speak My Routine Button -->
+                <div class="lg:col-span-5 flex flex-col items-center gap-4">
+                    <!-- Speech Bubble -->
+                    <div id="bubble-ex4-routine" onmouseenter="speakMyCustomRoutine()" onclick="speakMyCustomRoutine()" class="speech-bubble w-full p-5 cursor-pointer" style="border-color:#65a30d; box-shadow: 0 5px 0 #65a30d;">
+                        <div class="flex items-center justify-center gap-1.5 mb-1.5 flex-wrap">
+                            <span class="bg-lime-100 text-lime-900 text-xs font-black px-3 py-0.5 rounded-full border border-lime-300">
+                                🗣️ My Daily Routine
+                            </span>
+                            <i class="fa-solid fa-volume-high text-lime-700 text-xs"></i>
+                        </div>
+                        <p id="routineSpeechText" class="sentence-text text-base sm:text-xl font-black text-slate-900 leading-relaxed">
+                            "I <span class="vocab-word">get up</span> every morning at seven o'clock. I get dressed and <span class="vocab-word">have breakfast</span> at 7:30..."
+                        </p>
+                    </div>
+
+                    <!-- Girl with Notebook Illustration + Speak Routine Button -->
+                    <div class="flex flex-col sm:flex-row items-center gap-4 w-full bg-emerald-50/80 p-4 rounded-2xl border-2 border-emerald-200">
+                        <div class="relative w-28 h-28 rounded-2xl bg-white border-2 border-emerald-400 shadow-md flex-shrink-0 overflow-hidden flex items-center justify-center">
+                            <div id="ex4GirlAvatarBox" class="w-full h-full flex items-center justify-center">
+                                <svg viewBox="0 0 120 120" class="w-full h-full">
+                                    <rect width="120" height="120" fill="#f0fdf4"/>
+                                    <path d="M28 55 Q60 15 92 55 L95 95 L25 95 Z" fill="#292524"/>
+                                    <circle cx="60" cy="50" r="22" fill="#d97742"/>
+                                    <circle cx="51" cy="46" r="2.8" fill="#1e293b"/>
+                                    <circle cx="69" cy="46" r="2.8" fill="#1e293b"/>
+                                    <path d="M53 58 Q60 63 67 58" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                                    <rect x="30" y="74" width="60" height="40" rx="10" fill="#1e3a8a"/>
+                                    <polygon points="50,74 70,74 60,88" fill="#93c5fd"/>
+                                    <!-- Notebook & Pen -->
+                                    <rect x="28" y="102" width="64" height="14" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+                                    <line x1="36" y1="88" x2="48" y2="105" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <label for="upload-photo-ex4-girl" class="cursor-pointer absolute top-1 right-1 z-10 w-3.5 h-3.5 rounded-full bg-white/90 hover:bg-emerald-50 text-emerald-700 border border-emerald-400 shadow-2xs flex items-center justify-center text-[7px] transition opacity-80 hover:opacity-100" title="إضافة وحفظ صورة">
+                                <i class="fa-solid fa-camera"></i>
+                            </label>
+                            <input type="file" id="upload-photo-ex4-girl" accept="image/*" class="hidden" onchange="handleEx4GirlPhotoUpload(event)">
+                        </div>
+
+                        <div class="flex flex-col gap-2 w-full">
+                            <button onclick="speakMyCustomRoutine()" class="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black text-sm sm:text-base rounded-2xl shadow-lg flex items-center justify-center gap-2 transition active:scale-95">
+                                <i class="fa-solid fa-microphone-lines"></i>
+                                <span>انطق روتيني اليومي 🔊</span>
+                            </button>
+                            <p dir="rtl" class="ar-font text-xs font-bold text-slate-600 text-center">
+                                غيّر الأوقات والأنشطة في الجدول ثم اضغط الزر لسماع فقرتك الكاملة بصوت واضح!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- PAGE 27 BADGE                                                       -->
+        <!-- =================================================================== -->
+        <div class="mt-10 mb-4 flex items-center justify-center">
+            <div class="relative group cursor-pointer select-none">
+                <div class="absolute -inset-1.5 bg-gradient-to-r from-teal-400 via-amber-400 to-pink-500 rounded-3xl blur-md opacity-70 group-hover:opacity-100 transition duration-300"></div>
+
+                <div class="relative bg-gradient-to-b from-white to-amber-50/90 border-3 border-teal-600 rounded-2xl px-7 py-3 shadow-lg flex items-center gap-4">
+                    <div class="flex items-center gap-1 text-base sm:text-lg">
+                        <span class="text-amber-400 animate-spin" style="animation-duration: 6s;">✦</span>
+                        <span class="text-teal-600 text-xl">🎧</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-pink-500 via-rose-600 to-teal-700 text-white flex items-center justify-center font-black text-2xl shadow-md border-2 border-white ring-2 ring-pink-300 transform -rotate-3 hover:rotate-0 transition-transform">
+                            27
+                        </div>
+                        <div class="text-left leading-tight">
+                            <span class="en-font font-black text-xl text-teal-800 tracking-wide block">
+                                UNIT 2 • PAGE <span class="text-rose-500">27</span>
+                            </span>
+                            <span dir="rtl" class="text-xs sm:text-sm font-bold text-amber-700 font-['Cairo'] block">
+                                📖 صفحة ٢٧ • كتاب الطالب
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-1 text-base sm:text-lg">
+                        <span class="text-rose-500 text-xl">⏰</span>
+                        <span class="text-amber-400 animate-spin" style="animation-duration: 6s; animation-direction: reverse;">✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Reading Toast -->
+    <div id="liveReadingToast" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 backdrop-blur-md text-white px-5 py-2.5 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-8 max-w-[94vw]">
+        <div class="w-3 h-3 rounded-full bg-emerald-400 animate-ping flex-shrink-0"></div>
+        <div class="truncate">
+            <span class="text-[11px] text-slate-400 block font-sans" id="toastSpeakerLabel">Reading with William Multilingual Online (Natural) - (Australia):</span>
+            <span id="toastWord" class="en-font font-black text-amber-300 text-base sm:text-lg tracking-wide">...</span>
+        </div>
+    </div>
+
+    <footer class="bg-white/90 border-t border-emerald-200 mt-8 py-5 px-4 text-center text-xs text-slate-600">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="font-bold">
+                Unit 2: Listening and Speaking • Ali's Daily Routine (Page 27)
+            </p>
+            <div class="flex items-center gap-2">
+                <span class="bg-indigo-50 text-indigo-800 px-3 py-1 rounded-full font-bold border border-indigo-200 flex items-center gap-1.5">
+                    <i class="fa-solid fa-headset text-indigo-600"></i>
+                    <span id="footerSpeakerName">William Multilingual Online (Natural) - (Australia)</span>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================================
+        // DATA FOR EXERCISE 2 (Cards a - f: Listen and number in order)
+        // ============================================================================
+        const ex2CardsData = [
+            {
+                letter: 'a',
+                correctOrder: 2,
+                userOrder: '',
+                sentence: "In picture A, Ali is having breakfast at 6:30 before he takes the bus to school.",
+                shortTitle: "eating breakfast",
+                arText: "يتناول وجبة الفطور قبل الذهاب للمدرسة",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#e5deab"/>
+                    <rect x="0" y="122" width="280" height="53" fill="#d97742" stroke="#9a3412" stroke-width="2"/>
+                    <circle cx="135" cy="58" r="24" fill="#b45309"/>
+                    <path d="M108 52 Q135 20 164 52 Q168 32 135 26 Q104 32 108 52 Z" fill="#292524"/>
+                    <circle cx="127" cy="56" r="2.8" fill="#1e293b"/>
+                    <circle cx="145" cy="56" r="2.8" fill="#1e293b"/>
+                    <ellipse cx="136" cy="68" rx="5" ry="4" fill="#7c2d12"/>
+                    <path d="M90 122 Q100 82 135 82 Q170 82 180 122 Z" fill="#0d9488" stroke="#115e59" stroke-width="2"/>
+                    <path d="M108 128 L152 128 L144 148 L116 148 Z" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+                    <ellipse cx="130" cy="128" rx="20" ry="5" fill="#d97706"/>
+                    <rect x="165" y="114" width="16" height="28" rx="3" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5"/>
+                    <ellipse cx="78" cy="144" rx="22" ry="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+                    <rect x="68" y="138" width="18" height="9" rx="2" fill="#d97706"/>
+                    <line x1="95" y1="68" x2="128" y2="68" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                letter: 'b',
+                correctOrder: 6,
+                userOrder: '',
+                sentence: "In picture B, Ali is sitting on the floor and watching TV in the evening.",
+                shortTitle: "watching TV",
+                arText: "يجلس ويشاهد التلفاز في المساء",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#f5eccd"/>
+                    <polygon points="0,125 280,125 280,175 0,175" fill="#d6ae7b"/>
+                    <rect x="135" y="86" width="115" height="52" fill="#b48347" stroke="#78350f" stroke-width="2"/>
+                    <rect x="152" y="24" width="84" height="58" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="3"/>
+                    <rect x="157" y="29" width="74" height="48" fill="#86efac"/>
+                    <circle cx="175" cy="44" r="10" fill="#22c55e"/>
+                    <path d="M157 65 Q190 54 231 65 L231 77 L157 77 Z" fill="#15803d"/>
+                    <circle cx="78" cy="64" r="20" fill="#b45309"/>
+                    <path d="M58 60 Q75 34 96 58 Z" fill="#292524"/>
+                    <path d="M56 146 L72 90 L98 92 L88 146 Z" fill="#0d9488"/>
+                    <path d="M84 136 L142 146 L146 134 L88 124 Z" fill="#2563eb"/>
+                </svg>`
+            },
+            {
+                letter: 'c',
+                correctOrder: 5,
+                userOrder: '',
+                sentence: "In picture C, he usually plays video games after dinner.",
+                shortTitle: "playing video games",
+                arText: "يلعب ألعاب الفيديو عادةً بعد العشاء",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#e5deab"/>
+                    <circle cx="140" cy="54" r="24" fill="#b45309"/>
+                    <path d="M114 48 Q140 18 166 48 Z" fill="#292524"/>
+                    <circle cx="132" cy="52" r="2.8" fill="#1e293b"/>
+                    <circle cx="148" cy="52" r="2.8" fill="#1e293b"/>
+                    <path d="M133 63 Q140 70 147 63" stroke="#7c2d12" stroke-width="2.5" fill="none"/>
+                    <path d="M98 150 Q105 82 140 82 Q175 82 182 150 Z" fill="#0d9488"/>
+                    <circle cx="146" cy="116" r="8" fill="#84cc16"/>
+                    <rect x="118" y="104" width="36" height="18" rx="7" fill="#334155" stroke="#0f172a" stroke-width="2"/>
+                    <circle cx="126" cy="113" r="2.5" fill="#38bdf8"/>
+                    <circle cx="146" cy="113" r="2.5" fill="#f43f5e"/>
+                    <ellipse cx="140" cy="162" rx="68" ry="18" fill="#312e81"/>
+                </svg>`
+            },
+            {
+                letter: 'd',
+                correctOrder: 3,
+                userOrder: '',
+                sentence: "In picture D, he does his homework and sometimes helps his sister before dinner.",
+                shortTitle: "doing homework",
+                arText: "يحل واجباته المدرسية قبل العشاء",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#e5deab"/>
+                    <rect x="15" y="122" width="250" height="53" rx="6" fill="#d97742" stroke="#9a3412" stroke-width="2"/>
+                    <circle cx="140" cy="54" r="23" fill="#b45309"/>
+                    <path d="M115 48 Q140 18 165 48 Z" fill="#292524"/>
+                    <path d="M96 122 Q106 80 140 80 Q174 80 184 122 Z" fill="#0d9488"/>
+                    <polygon points="98,128 140,132 140,156 92,150" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+                    <polygon points="140,132 182,128 188,150 140,156" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+                    <line x1="115" y1="102" x2="126" y2="136" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                letter: 'e',
+                correctOrder: 4,
+                userOrder: '',
+                sentence: "In picture E, he always helps clean the kitchen and washes the dishes after dinner.",
+                shortTitle: "washing the dishes",
+                arText: "يساعد دائماً في تنظيف المطبخ وغسل الأطباق بعد العشاء",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#f5eccd"/>
+                    <rect x="0" y="130" width="280" height="45" fill="#d6ae7b" stroke="#78350f" stroke-width="2"/>
+                    <circle cx="140" cy="48" r="22" fill="#b45309"/>
+                    <path d="M116 42 Q140 14 164 42 Z" fill="#292524"/>
+                    <path d="M104 130 Q112 76 140 76 Q168 76 176 130 Z" fill="#0d9488"/>
+                    <polygon points="86,136 194,136 184,162 96,162" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+                    <circle cx="148" cy="108" r="14" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+                    <path d="M140 136 L140 112 Q140 102 150 102" stroke="#64748b" stroke-width="4" fill="none"/>
+                    <circle cx="122" cy="144" r="6" fill="#ffffff" opacity="0.9"/>
+                    <circle cx="135" cy="146" r="7" fill="#ffffff" opacity="0.9"/>
+                    <circle cx="155" cy="144" r="6" fill="#ffffff" opacity="0.9"/>
+                </svg>`
+            },
+            {
+                letter: 'f',
+                correctOrder: 1,
+                userOrder: '',
+                sentence: "In picture F, Ali gets up every morning at six o'clock.",
+                shortTitle: "getting up at 6:00",
+                arText: "يستيقظ علي كل صباح في الساعة السادسة تماماً (١)",
+                customImg: null,
+                customAudio: null,
+                svg: `<svg viewBox="0 0 280 175" preserveAspectRatio="none" class="w-full h-full block">
+                    <rect width="280" height="175" fill="#e5deab"/>
+                    <path d="M15 65 Q50 55 85 85 L85 175 L15 175 Z" fill="#92400e"/>
+                    <ellipse cx="82" cy="128" rx="38" ry="18" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+                    <circle cx="138" cy="78" r="22" fill="#b45309"/>
+                    <path d="M114 72 Q138 42 162 72 Z" fill="#292524"/>
+                    <ellipse cx="138" cy="85" rx="5" ry="6" fill="#7c2d12"/>
+                    <path d="M104 140 L172 140 L164 102 L112 102 Z" fill="#38bdf8"/>
+                    <path d="M112 108 L82 62" stroke="#38bdf8" stroke-width="14" stroke-linecap="round"/>
+                    <path d="M164 108 L188 58" stroke="#38bdf8" stroke-width="14" stroke-linecap="round"/>
+                    <circle cx="80" cy="58" r="7" fill="#b45309"/>
+                    <circle cx="190" cy="54" r="7" fill="#b45309"/>
+                    <path d="M72 142 Q145 118 225 148 L225 175 L72 175 Z" fill="#84cc16" stroke="#4d7c0f" stroke-width="2"/>
+                </svg>`
+            }
+        ];
+
+        // ============================================================================
+        // DATA FOR EXERCISE 3 (Listen again and choose the correct words 1-5)
+        // ============================================================================
+        const ex3QuestionsData = [
+            {
+                id: 1,
+                prefix: "Ali gets up every morning at",
+                options: ["6:00", "6:30"],
+                suffix: ".",
+                correct: "6:00",
+                userChoice: null,
+                customAudio: null,
+                arText: "يستيقظ علي كل صباح في الساعة السادسة تماماً (6:00)."
+            },
+            {
+                id: 2,
+                prefix: "He takes the",
+                options: ["bus", "car"],
+                suffix: "to school every day.",
+                correct: "bus",
+                userChoice: null,
+                customAudio: null,
+                arText: "يأخذ الحافلة (bus) إلى المدرسة كل يوم."
+            },
+            {
+                id: 3,
+                prefix: "He sometimes helps his sister with her homework before",
+                options: ["school", "dinner"],
+                suffix: ".",
+                correct: "dinner",
+                userChoice: null,
+                customAudio: null,
+                arText: "يساعد أخته أحياناً في واجباتها المدرسية قبل العشاء (dinner)."
+            },
+            {
+                id: 4,
+                prefix: "He",
+                options: ["sometimes", "always"],
+                suffix: "helps clean the kitchen after dinner.",
+                correct: "always",
+                userChoice: null,
+                customAudio: null,
+                arText: "هو دائماً (always) يساعد في تنظيف المطبخ بعد العشاء."
+            },
+            {
+                id: 5,
+                prefix: "He usually plays video games",
+                options: ["before", "after"],
+                suffix: "dinner.",
+                correct: "after",
+                userChoice: null,
+                customAudio: null,
+                arText: "يلعب ألعاب الفيديو عادةً بعد (after) العشاء."
+            }
+        ];
+
+        // ============================================================================
+        // DATA FOR EXERCISE 4 (Complete the day for you)
+        // ============================================================================
+        const routineRowsData = [
+            { id: 1, time: "6:00 AM", what: "get up", ar: "أستيقظ من النوم", editableWhat: false, customAudio: null },
+            { id: 2, time: "6:30 AM", what: "have breakfast", ar: "أتناول الفطور", editableWhat: false, customAudio: null },
+            { id: 3, time: "7:00 AM", what: "go to school", ar: "أذهب إلى المدرسة", editableWhat: false, customAudio: null },
+            { id: 4, time: "4:00 PM", what: "do my homework", ar: "أحل واجباتي", editableWhat: true, customAudio: null },
+            { id: 5, time: "6:30 PM", what: "help clean the kitchen", ar: "أساعد في تنظيف المطبخ", editableWhat: true, customAudio: null },
+            { id: 6, time: "7:30 PM", what: "play video games", ar: "ألعب ألعاب الفيديو", editableWhat: true, customAudio: null },
+            { id: 7, time: "9:00 PM", what: "go to bed", ar: "أذهب إلى النوم", editableWhat: false, customAudio: null }
+        ];
+
+        const STORAGE_KEY_EX2_IMAGES = 'unit2_page27_ex2_images_v1';
+        const STORAGE_KEY_CUSTOM_AUDIOS = 'unit2_page27_custom_audios_v1';
+        const IDB_NAME = 'Unit2Page27MediaDB';
+        const IDB_STORE = 'mediaStore';
+        const customAudiosMap = { ex2: null, ex3: null, ex4: null, ex4Bubble: null };
+        let ex4GirlCustomImg = null;
+        let ex1BoyACustomImg = null;
+        let ex1BoyBCustomImg = null;
+
+        function openMediaDB() {
+            return new Promise((resolve) => {
+                if (!('indexedDB' in window)) {
+                    resolve(null);
+                    return;
+                }
+                const request = indexedDB.open(IDB_NAME, 1);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(IDB_STORE)) {
+                        db.createObjectStore(IDB_STORE);
+                    }
+                };
+                request.onsuccess = (e) => resolve(e.target.result);
+                request.onerror = () => resolve(null);
+            });
+        }
+
+        async function idbSetItem(key, value) {
+            try {
+                const db = await openMediaDB();
+                if (!db) return;
+                return new Promise((resolve) => {
+                    const tx = db.transaction(IDB_STORE, 'readwrite');
+                    tx.objectStore(IDB_STORE).put(value, key);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                });
+            } catch (e) {}
+        }
+
+        async function idbGetItem(key) {
+            try {
+                const db = await openMediaDB();
+                if (!db) return null;
+                return new Promise((resolve) => {
+                    const tx = db.transaction(IDB_STORE, 'readonly');
+                    const req = tx.objectStore(IDB_STORE).get(key);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
+                });
+            } catch (e) {
+                return null;
+            }
+        }
+
+        let currentSpeechRate = 0.75;
+        let isPlayingFullLesson = false;
+        let currentFullIndex = 0;
+        let activeTimeouts = [];
+        let availableVoices = [];
+        let lockedNativeVoice = null;
+        let activeCardAudioPlayer = null;
+        const LOCKED_VOICE_LABEL = 'William Multilingual Online (Natural) - (Australia)';
+
+        function canPlayEx3Audio() {
+            return isEx2Completed();
+        }
+
+        // ============================================================================
+        // RENDER EXERCISE 2 CARDS (a to f) WITH IMAGE UPLOAD & AUTO-SAVE
+        // ============================================================================
+        function renderEx2Cards() {
+            const grid = document.getElementById('ex2CardsGrid');
+            if (!grid) return;
+
+            grid.innerHTML = ex2CardsData.map(card => {
+                const isCorrect = String(card.userOrder) === String(card.correctOrder);
+                const isWrong = card.userOrder !== '' && !isCorrect;
+                const selectStateClass = isCorrect ? 'correct-order' : (isWrong ? 'wrong-order' : '');
+
+                return `
+                <div id="ex2-card-${card.letter}" onmouseenter="autoPlayCardAudio('${card.letter}')" class="comic-panel p-0 relative aspect-[16/10] w-full overflow-hidden">
+                    <div class="relative w-full h-full">
+                        ${card.customImg ? `
+                            <img src="${card.customImg}" alt="Card ${card.letter}" class="w-full h-full object-fill block" />
+                        ` : card.svg}
+
+                        <div class="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
+                            <span class="letter-badge">${card.letter}</span>
+                            ${isCorrect ? `<span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow">🌟 Excellent!</span>` : ''}
+                        </div>
+
+                        <div class="absolute top-2 right-2 z-10 flex items-center gap-1">
+                            <label for="upload-photo-${card.letter}" class="cursor-pointer w-4 h-4 rounded-full bg-white/90 hover:bg-teal-50 text-teal-700 border border-teal-500 shadow-2xs flex items-center justify-center text-[8px] transition opacity-80 hover:opacity-100" title="إضافة وحفظ صورة للبطاقة (${card.letter})">
+                                <i class="fa-solid fa-camera"></i>
+                            </label>
+                            <input type="file" id="upload-photo-${card.letter}" accept="image/*" class="hidden" onchange="handleCardPhotoUpload(event, '${card.letter}')">
+                        </div>
+
+                        <div class="absolute bottom-2.5 right-2.5 z-10">
+                            <select onchange="handleEx2OrderChange('${card.letter}', this.value)" class="order-select ${selectStateClass}" title="اختر الترتيب الصحيح (1-6)">
+                                <option value="" ${card.userOrder === '' ? 'selected' : ''}>-</option>
+                                ${[1, 2, 3, 4, 5, 6].map(num => `
+                                    <option value="${num}" ${String(card.userOrder) === String(num) ? 'selected' : ''}>${num}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            updateSaveAllButtonVisibility();
+        }
+
+        function updateSaveAllButtonVisibility() {
+            const hasAnySavedMedia = ex2CardsData.some(c => Boolean(c.customImg || c.customAudio)) ||
+                                     ex3QuestionsData.some(q => Boolean(q.customAudio)) ||
+                                     routineRowsData.some(r => Boolean(r.customAudio)) ||
+                                     Boolean(ex4GirlCustomImg || ex1BoyACustomImg || ex1BoyBCustomImg) ||
+                                     Boolean(customAudiosMap.ex2 || customAudiosMap.ex3 || customAudiosMap.ex4 || customAudiosMap.ex4Bubble);
+            document.querySelectorAll('.save-all-media-btn').forEach(btn => {
+                if (hasAnySavedMedia) btn.classList.remove('hidden');
+                else btn.classList.add('hidden');
+            });
+        }
+
+        function renderEx1Avatars() {
+            const boxA = document.getElementById('ex1BoyAAvatarBox');
+            if (boxA) {
+                if (ex1BoyACustomImg) {
+                    boxA.innerHTML = `<img src="${ex1BoyACustomImg}" alt="Partner A" class="w-full h-full object-cover block" />`;
+                } else {
+                    boxA.innerHTML = `
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <rect width="100" height="100" fill="#fef3c7"/>
+                            <circle cx="50" cy="44" r="22" fill="#d97742"/>
+                            <path d="M28 38 Q50 16 72 38 Q68 24 28 38 Z" fill="#1e293b"/>
+                            <circle cx="42" cy="44" r="2.8" fill="#1e293b"/>
+                            <circle cx="58" cy="44" r="2.8" fill="#1e293b"/>
+                            <path d="M43 54 Q50 59 57 54" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                            <rect x="26" y="68" width="48" height="32" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                            <ellipse cx="48" cy="68" rx="10" ry="6" fill="#d97742"/>
+                        </svg>
+                    `;
+                }
+            }
+
+            const boxB = document.getElementById('ex1BoyBAvatarBox');
+            if (boxB) {
+                if (ex1BoyBCustomImg) {
+                    boxB.innerHTML = `<img src="${ex1BoyBCustomImg}" alt="Partner B" class="w-full h-full object-cover block" />`;
+                } else {
+                    boxB.innerHTML = `
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <rect width="100" height="100" fill="#e7e5e4"/>
+                            <circle cx="50" cy="45" r="22" fill="#f5cba7"/>
+                            <path d="M27 38 Q50 15 73 38 Z" fill="#292524"/>
+                            <rect x="33" y="39" width="14" height="10" rx="3" fill="none" stroke="#1e293b" stroke-width="2.2"/>
+                            <rect x="53" y="39" width="14" height="10" rx="3" fill="none" stroke="#1e293b" stroke-width="2.2"/>
+                            <line x1="47" y1="43" x2="53" y2="43" stroke="#1e293b" stroke-width="2.2"/>
+                            <circle cx="40" cy="44" r="2.2" fill="#1e293b"/>
+                            <circle cx="60" cy="44" r="2.2" fill="#1e293b"/>
+                            <path d="M43 56 Q50 62 57 56" stroke="#9a3412" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                            <rect x="26" y="68" width="48" height="32" rx="10" fill="#1e293b"/>
+                        </svg>
+                    `;
+                }
+            }
+            updateSaveAllButtonVisibility();
+        }
+
+        function handleEx1AvatarPhotoUpload(event, partner) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('image/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 500;
+                    let width = tempImg.width;
+                    let height = tempImg.height;
+                    if (width > maxW) {
+                        height = Math.round((height * maxW) / width);
+                        width = maxW;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(tempImg, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
+
+                    if (partner === 'a') ex1BoyACustomImg = dataUrl;
+                    else if (partner === 'b') ex1BoyBCustomImg = dataUrl;
+
+                    saveEx2ImagesToStorage();
+                    renderEx1Avatars();
+                    playSuccessChime();
+                    showToast('تم حفظ الصورة تلقائياً ✓');
+                    setTimeout(hideToast, 2000);
+                };
+                tempImg.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderEx4GirlAvatar() {
+            const box = document.getElementById('ex4GirlAvatarBox');
+            if (!box) return;
+            if (ex4GirlCustomImg) {
+                box.innerHTML = `<img src="${ex4GirlCustomImg}" alt="Student" class="w-full h-full object-cover block" />`;
+            } else {
+                box.innerHTML = `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <rect width="120" height="120" fill="#f0fdf4"/>
+                        <path d="M28 55 Q60 15 92 55 L95 95 L25 95 Z" fill="#292524"/>
+                        <circle cx="60" cy="50" r="22" fill="#d97742"/>
+                        <circle cx="51" cy="46" r="2.8" fill="#1e293b"/>
+                        <circle cx="69" cy="46" r="2.8" fill="#1e293b"/>
+                        <path d="M53 58 Q60 63 67 58" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <rect x="30" y="74" width="60" height="40" rx="10" fill="#1e3a8a"/>
+                        <polygon points="50,74 70,74 60,88" fill="#93c5fd"/>
+                        <rect x="28" y="102" width="64" height="14" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="36" y1="88" x2="48" y2="105" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                `;
+            }
+            updateSaveAllButtonVisibility();
+        }
+
+        function handleEx4GirlPhotoUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('image/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 500;
+                    let width = tempImg.width;
+                    let height = tempImg.height;
+                    if (width > maxW) {
+                        height = Math.round((height * maxW) / width);
+                        width = maxW;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(tempImg, 0, 0, width, height);
+                    ex4GirlCustomImg = canvas.toDataURL('image/jpeg', 0.86);
+
+                    saveEx2ImagesToStorage();
+                    renderEx4GirlAvatar();
+                    playSuccessChime();
+                    showToast('تم حفظ الصورة تلقائياً ✓');
+                    setTimeout(hideToast, 2000);
+                };
+                tempImg.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleCustomAudioUpload(event, targetKey) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('audio/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const audioDataUrl = evt.target.result;
+                customAudiosMap[targetKey] = audioDataUrl;
+                const shouldPlayNow = targetKey === 'ex2' ? true : canPlayEx3Audio();
+                applyCustomAudioUI(targetKey, audioDataUrl, shouldPlayNow);
+                saveCustomAudiosToStorage();
+                renderEx2Cards();
+                if (targetKey === 'ex3' && !shouldPlayNow) {
+                    showToast('تم حفظ صوت التمرين 3 (سيعمل بعد انتهاء مقطع التمرين 2) 🎵✓');
+                } else {
+                    showToast('يعمل المقطع الصوتي الآن تلقائياً 🎵🔊');
+                }
+                setTimeout(hideToast, 2500);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyCustomAudioUI(targetKey, audioDataUrl, shouldAutoPlay = true) {
+            const box = document.getElementById(`custom-audio-box-${targetKey}`);
+            const player = document.getElementById(`custom-audio-player-${targetKey}`);
+            if (!box || !player) return;
+
+            if (audioDataUrl) {
+                const canAutoPlayNow = Boolean(shouldAutoPlay && (targetKey !== 'ex3' || canPlayEx3Audio()));
+                player.autoplay = false;
+                player.removeAttribute('autoplay');
+                player.src = audioDataUrl;
+
+                if (targetKey === 'ex2') {
+                    player.onplay = () => {
+                        pauseEx3GeneralAudio();
+                    };
+                    player.onended = () => {
+                        if (canPlayEx3Audio()) {
+                            autoStartEx3GeneralAudioIfNeeded();
+                        }
+                    };
+                } else if (targetKey === 'ex3') {
+                    player.onplay = () => {
+                        if (!canPlayEx3Audio()) {
+                            player.pause();
+                            player.currentTime = 0;
+                            showToast('أجب على التمرين رقم 2 أولاً قبل تشغيل المقطع الصوتي ⚠️');
+                            setTimeout(hideToast, 2200);
+                        }
+                    };
+                }
+
+                box.classList.remove('hidden');
+                box.classList.add('flex');
+
+                if (canAutoPlayNow) {
+                    player.autoplay = true;
+                    player.play().catch(() => {
+                        enableFirstGestureAutoPlay(() => {
+                            if (targetKey !== 'ex3' || canPlayEx3Audio()) {
+                                player.play().catch(() => {});
+                            }
+                        });
+                    });
+                } else {
+                    player.pause();
+                    player.currentTime = 0;
+                }
+            } else {
+                player.pause();
+                player.removeAttribute('src');
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+            }
+        }
+
+        function playSectionCustomAudio(targetKey) {
+            if (targetKey === 'ex3' && !canPlayEx3Audio()) return;
+            const player = document.getElementById(`custom-audio-player-${targetKey}`);
+            if (player && player.src && player.paused) {
+                player.play().catch(() => {});
+            }
+        }
+
+        function removeCustomAudio(targetKey) {
+            customAudiosMap[targetKey] = null;
+            applyCustomAudioUI(targetKey, null, false);
+            saveCustomAudiosToStorage();
+            renderEx2Cards();
+        }
+
+        function handleCardAudioUpload(event, letter) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('audio/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const card = ex2CardsData.find(c => c.letter === letter);
+                if (card) {
+                    card.customAudio = evt.target.result;
+                    saveCustomAudiosToStorage();
+                    renderEx2Cards();
+                    playCardCustomAudio(letter);
+                    showToast(`يعمل صوت البطاقة (${letter}) الآن تلقائياً 🎵🔊`);
+                    setTimeout(hideToast, 2200);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function autoPlayCardAudio(letter) {
+            const card = ex2CardsData.find(c => c.letter === letter);
+            if (!card) return;
+            if (card.customAudio) {
+                playCardCustomAudio(letter);
+            }
+        }
+
+        function playCardCustomAudio(letter) {
+            const card = ex2CardsData.find(c => c.letter === letter);
+            if (!card || !card.customAudio) return;
+
+            if (activeCardAudioPlayer) {
+                activeCardAudioPlayer.pause();
+                activeCardAudioPlayer = null;
+            }
+            const bubbleEl = document.getElementById(`bubble-ex2-${letter}`);
+            document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('active-speech'));
+            if (bubbleEl) bubbleEl.classList.add('active-speech');
+
+            activeCardAudioPlayer = new Audio(card.customAudio);
+            activeCardAudioPlayer.onended = () => {
+                if (bubbleEl) bubbleEl.classList.remove('active-speech');
+            };
+            activeCardAudioPlayer.play().catch(() => {});
+        }
+
+        function isEx2Completed() {
+            return ex2CardsData.every(c => String(c.userOrder) === String(c.correctOrder));
+        }
+
+        function pauseEx2GeneralAudio() {
+            const player = document.getElementById('custom-audio-player-ex2');
+            if (player && !player.paused) {
+                player.pause();
+            }
+        }
+
+        function handleEx2OrderChange(letter, chosenVal) {
+            stopAutoPlay();
+            const card = ex2CardsData.find(c => c.letter === letter);
+            if (!card) return;
+            card.userOrder = chosenVal;
+            renderEx2Cards();
+
+            if (String(chosenVal) === String(card.correctOrder)) {
+                playSuccessChime();
+                const allSolved = isEx2Completed();
+                if (allSolved) {
+                    pauseEx2GeneralAudio();
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 75, spread: 70, origin: { y: 0.6 } });
+                    }
+                    speakSentenceWithLockedVoice("Excellent!", () => {
+                        if (isEx3AllAnswered() && !hasFinishedEx3Completely) {
+                            readAllEx3SentencesSequentially();
+                        } else {
+                            autoStartEx3GeneralAudioIfNeeded();
+                        }
+                    });
+                } else {
+                    speakSentenceWithLockedVoice("Excellent!");
+                }
+            } else if (chosenVal !== '') {
+                speakSentenceWithLockedVoice("Try again!");
+            }
+        }
+
+        function revealExercise2Order() {
+            ex2CardsData.forEach(c => { c.userOrder = String(c.correctOrder); });
+            renderEx2Cards();
+            pauseEx2GeneralAudio();
+            playSuccessChime();
+            if (isEx3AllAnswered() && !hasFinishedEx3Completely) {
+                readAllEx3SentencesSequentially();
+            } else {
+                autoStartEx3GeneralAudioIfNeeded();
+            }
+        }
+
+        function resetExercise2Order() {
+            ex2CardsData.forEach(c => { c.userOrder = ''; });
+            renderEx2Cards();
+            pauseEx3GeneralAudio();
+            const player3 = document.getElementById('custom-audio-player-ex3');
+            if (player3) player3.currentTime = 0;
+            resetAllHighlights();
+        }
+
+        async function saveCustomAudiosToStorage() {
+            const payload = {
+                ex2: customAudiosMap.ex2,
+                ex3: customAudiosMap.ex3,
+                ex4: customAudiosMap.ex4,
+                ex4Bubble: customAudiosMap.ex4Bubble,
+                cards: {},
+                ex3Questions: {},
+                routineRows: {}
+            };
+            ex2CardsData.forEach(c => {
+                if (c.customAudio) payload.cards[c.letter] = c.customAudio;
+            });
+            ex3QuestionsData.forEach(q => {
+                if (q.customAudio) payload.ex3Questions[q.id] = q.customAudio;
+            });
+            routineRowsData.forEach(r => {
+                if (r.customAudio) payload.routineRows[r.id] = r.customAudio;
+            });
+
+            await idbSetItem(STORAGE_KEY_CUSTOM_AUDIOS, payload);
+
+            try {
+                localStorage.setItem(STORAGE_KEY_CUSTOM_AUDIOS, JSON.stringify(payload));
+            } catch (e) {}
+        }
+
+        async function loadCustomAudiosFromStorage() {
+            try {
+                let payload = await idbGetItem(STORAGE_KEY_CUSTOM_AUDIOS);
+                if (!payload) {
+                    const raw = localStorage.getItem(STORAGE_KEY_CUSTOM_AUDIOS);
+                    if (raw) payload = JSON.parse(raw);
+                }
+                if (!payload) return;
+
+                if (payload.ex2) {
+                    customAudiosMap.ex2 = payload.ex2;
+                    applyCustomAudioUI('ex2', payload.ex2, true);
+                }
+                if (payload.ex3) {
+                    customAudiosMap.ex3 = payload.ex3;
+                    applyCustomAudioUI('ex3', payload.ex3, false);
+                }
+                if (payload.ex4) {
+                    customAudiosMap.ex4 = payload.ex4;
+                    applyCustomAudioUI('ex4', payload.ex4, false);
+                }
+                if (payload.ex4Bubble) {
+                    customAudiosMap.ex4Bubble = payload.ex4Bubble;
+                }
+                if (payload.cards) {
+                    ex2CardsData.forEach(c => {
+                        if (payload.cards[c.letter]) c.customAudio = payload.cards[c.letter];
+                    });
+                }
+                if (payload.ex3Questions) {
+                    ex3QuestionsData.forEach(q => {
+                        if (payload.ex3Questions[q.id]) q.customAudio = payload.ex3Questions[q.id];
+                    });
+                }
+                if (payload.routineRows) {
+                    routineRowsData.forEach(r => {
+                        if (payload.routineRows[r.id]) r.customAudio = payload.routineRows[r.id];
+                    });
+                }
+            } catch (e) {}
+        }
+
+        function handleCardPhotoUpload(event, letter) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('image/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 700;
+                    let width = tempImg.width;
+                    let height = tempImg.height;
+                    if (width > maxW) {
+                        height = Math.round((height * maxW) / width);
+                        width = maxW;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(tempImg, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
+
+                    const card = ex2CardsData.find(c => c.letter === letter);
+                    if (card) {
+                        card.customImg = dataUrl;
+                        saveEx2ImagesToStorage();
+                        renderEx2Cards();
+                        playSuccessChime();
+                        showToast(`تم حفظ صورة البطاقة (${letter}) تلقائياً ✓`);
+                        setTimeout(hideToast, 2000);
+                    }
+                };
+                tempImg.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function saveEx2ImagesToStorage() {
+            const map = {};
+            ex2CardsData.forEach(c => {
+                if (c.customImg) map[c.letter] = c.customImg;
+            });
+            if (ex4GirlCustomImg) map['ex4_girl'] = ex4GirlCustomImg;
+            if (ex1BoyACustomImg) map['ex1_boy_a'] = ex1BoyACustomImg;
+            if (ex1BoyBCustomImg) map['ex1_boy_b'] = ex1BoyBCustomImg;
+            await idbSetItem(STORAGE_KEY_EX2_IMAGES, map);
+            try {
+                localStorage.setItem(STORAGE_KEY_EX2_IMAGES, JSON.stringify(map));
+            } catch (e) {}
+        }
+
+        async function loadEx2ImagesFromStorage() {
+            try {
+                let map = await idbGetItem(STORAGE_KEY_EX2_IMAGES);
+                if (!map) {
+                    const raw = localStorage.getItem(STORAGE_KEY_EX2_IMAGES);
+                    if (raw) map = JSON.parse(raw);
+                }
+                if (!map) return;
+                ex2CardsData.forEach(c => {
+                    if (map[c.letter]) c.customImg = map[c.letter];
+                });
+                if (map['ex4_girl']) ex4GirlCustomImg = map['ex4_girl'];
+                if (map['ex1_boy_a']) ex1BoyACustomImg = map['ex1_boy_a'];
+                if (map['ex1_boy_b']) ex1BoyBCustomImg = map['ex1_boy_b'];
+            } catch (e) {}
+        }
+
+        function downloadHtmlWithSavedImage() {
+            const cloneDoc = document.documentElement.cloneNode(true);
+
+            const embeddedDataScript = document.createElement('script');
+            const savedState = {
+                ex2Images: {},
+                ex2Audios: {},
+                ex3Audios: {},
+                routineAudios: {},
+                sectionAudios: {
+                    ex2: customAudiosMap.ex2,
+                    ex3: customAudiosMap.ex3,
+                    ex4: customAudiosMap.ex4,
+                    ex4Bubble: customAudiosMap.ex4Bubble
+                }
+            };
+            ex2CardsData.forEach(c => {
+                if (c.customImg) savedState.ex2Images[c.letter] = c.customImg;
+                if (c.customAudio) savedState.ex2Audios[c.letter] = c.customAudio;
+            });
+            if (ex4GirlCustomImg) savedState.ex2Images['ex4_girl'] = ex4GirlCustomImg;
+            if (ex1BoyACustomImg) savedState.ex2Images['ex1_boy_a'] = ex1BoyACustomImg;
+            if (ex1BoyBCustomImg) savedState.ex2Images['ex1_boy_b'] = ex1BoyBCustomImg;
+            ex3QuestionsData.forEach(q => {
+                if (q.customAudio) savedState.ex3Audios[q.id] = q.customAudio;
+            });
+            routineRowsData.forEach(r => {
+                if (r.customAudio) savedState.routineAudios[r.id] = r.customAudio;
+            });
+
+            embeddedDataScript.textContent = `window.__EMBEDDED_SAVED_MEDIA__ = ${JSON.stringify(savedState)};`;
+            const headEl = cloneDoc.querySelector('head');
+            if (headEl) headEl.appendChild(embeddedDataScript);
+
+            const htmlContent = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Unit2_Page27_Listening_Speaking_Saved.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ============================================================================
+        // RENDER EXERCISE 3 (Listen again and choose the correct words 1-5)
+        // ============================================================================
+        let isReadingEx3Sequence = false;
+        let ex3PendingSeqTimer = null;
+        let hasFinishedEx3Completely = false;
+        let lastEx3SelectTimestamp = 0;
+        let currentEx3SpeechSession = 0;
+        let isReadingEx4Sequence = false;
+        let currentEx4SpeechSession = 0;
+
+        function isEx3AllAnswered() {
+            return ex3QuestionsData.every(item => item.userChoice !== null);
+        }
+
+        function canReadExercise4() {
+            return isEx3AllAnswered() && !isReadingEx3Sequence && !ex3PendingSeqTimer;
+        }
+
+        function autoStartEx3GeneralAudioIfNeeded() {
+            if (!canPlayEx3Audio() || isEx3AllAnswered() || isReadingEx3Sequence) return;
+            const player = document.getElementById('custom-audio-player-ex3');
+            if (player && player.src && player.paused && player.currentTime === 0) {
+                player.play().catch(() => {});
+            }
+        }
+
+        function pauseEx3GeneralAudio() {
+            const player = document.getElementById('custom-audio-player-ex3');
+            if (player && !player.paused) {
+                player.pause();
+            }
+        }
+
+        function renderEx3Questions() {
+            const list = document.getElementById('ex3QuestionsList');
+            if (!list) return;
+
+            list.innerHTML = ex3QuestionsData.map(q => {
+                const isSolved = q.userChoice === q.correct;
+                const isAnswered = q.userChoice !== null;
+
+                return `
+                <div id="bubble-ex3-${q.id}" onmouseenter="handleEx3HoverOrClick(${q.id})" onclick="handleEx3HoverOrClick(${q.id})" class="speech-bubble p-4 text-center ${isAnswered ? 'cursor-pointer' : 'cursor-default'}">
+                    <div class="w-full flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <span class="w-8 h-8 rounded-xl bg-teal-700 text-white font-black text-base flex items-center justify-center shadow-xs">
+                            ${q.id}
+                        </span>
+                        <div class="flex items-center gap-1.5">
+                            ${isSolved ? `<span class="bg-emerald-600 text-white text-xs font-black px-3 py-0.5 rounded-full shadow">🌟 Excellent! ✓</span>` : ''}
+                        </div>
+                    </div>
+
+                    <p class="sentence-text text-lg sm:text-xl font-black text-slate-900 leading-relaxed">
+                        <span>${q.prefix}</span>
+                        ${q.options.map((opt, idx) => {
+                            let pillClass = '';
+                            if (q.userChoice === opt) {
+                                pillClass = (opt === q.correct) ? 'circled-correct' : 'circled-wrong';
+                            }
+                            return `
+                                <span onclick="event.stopPropagation(); selectEx3Option(${q.id}, '${opt}')" class="choice-pill ${pillClass}">${opt}</span>
+                                ${idx === 0 ? '<span class="text-sky-500 font-bold mx-0.5">/</span>' : ''}
+                            `;
+                        }).join('')}
+                        <span>${q.suffix}</span>
+                    </p>
+
+                    <p dir="rtl" class="ar-font text-xs sm:text-sm font-bold text-teal-900 mt-1">
+                        ${q.arText}
+                    </p>
+                </div>
+                `;
+            }).join('');
+
+            const solvedCount = ex3QuestionsData.filter(q => q.userChoice === q.correct).length;
+            const badge = document.getElementById('ex3ScoreBadge');
+            if (badge) badge.innerText = `Score: 0 / 5 ⭐`.replace('0', solvedCount);
+            updateSaveAllButtonVisibility();
+        }
+
+        function handleEx3HoverOrClick(qId) {
+            if (Date.now() - lastEx3SelectTimestamp < 650) return;
+            const q = ex3QuestionsData.find(item => item.id === qId);
+            if (!q || !q.userChoice || isReadingEx3Sequence) return;
+            const bubbleEl = document.getElementById(`bubble-ex3-${qId}`);
+            if (bubbleEl && bubbleEl.classList.contains('active-speech')) return;
+            speakEx3Sentence(qId);
+        }
+
+        function clearEx3WordHighlights(bubbleEl) {
+            // لم يعد هناك تظليل كلمة بكلمة، التظليل ثابت على الجملة كاملة
+        }
+
+        function speakEx3Sentence(qId, onFinished = null) {
+            const q = ex3QuestionsData.find(item => item.id === qId);
+            if (!q || !q.userChoice) {
+                if (onFinished) onFinished();
+                return;
+            }
+
+            currentEx3SpeechSession++;
+            const sessionId = currentEx3SpeechSession;
+
+            activeTimeouts.forEach(t => {
+                clearTimeout(t);
+                clearInterval(t);
+            });
+            activeTimeouts = [];
+
+            document.querySelectorAll('#ex3QuestionsList .speech-bubble').forEach(b => {
+                b.classList.remove('active-speech');
+            });
+
+            if ('speechSynthesis' in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+                window.speechSynthesis.cancel();
+            }
+
+            const bubbleEl = document.getElementById(`bubble-ex3-${qId}`);
+            if (bubbleEl) bubbleEl.classList.add('active-speech');
+
+            const chosenWord = q.userChoice;
+            const displaySentence = `${q.prefix} ${chosenWord}${q.suffix === '.' ? '.' : ' ' + q.suffix}`;
+            const spokenWord = formatTimeForSpeech(chosenWord);
+            const spokenSentence = `${q.prefix} ${spokenWord}${q.suffix === '.' ? '.' : ' ' + q.suffix}`;
+
+            showToast(displaySentence);
+
+            const calmEducationalRate = Math.min(currentSpeechRate, 0.8);
+            const wordCount = spokenSentence.trim().split(/\s+/).length;
+            const minTotalDuration = Math.max(1800, wordCount * 320);
+            const startTime = Date.now();
+
+            let isDone = false;
+            const finalizeSentence = () => {
+                if (isDone || sessionId !== currentEx3SpeechSession) return;
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, minTotalDuration - elapsed);
+
+                const endTimer = setTimeout(() => {
+                    if (isDone || sessionId !== currentEx3SpeechSession) return;
+                    isDone = true;
+                    if (bubbleEl) {
+                        bubbleEl.classList.remove('active-speech');
+                    }
+                    hideToast();
+                    if (onFinished) onFinished();
+                }, remaining);
+                activeTimeouts.push(endTimer);
+            };
+
+            if ('speechSynthesis' in window) {
+                const startTimer = setTimeout(() => {
+                    if (sessionId !== currentEx3SpeechSession) return;
+                    const allVoices = window.speechSynthesis.getVoices();
+                    const bestVoice = findBestRoutineVoice(allVoices);
+
+                    const utterance = new SpeechSynthesisUtterance(spokenSentence);
+                    window.activeUtteranceRef = utterance;
+
+                    if (bestVoice) {
+                        utterance.voice = bestVoice;
+                        utterance.lang = bestVoice.lang || 'en-US';
+                    } else {
+                        utterance.lang = 'en-US';
+                    }
+                    utterance.rate = calmEducationalRate;
+                    utterance.pitch = 1.0;
+
+                    utterance.onend = finalizeSentence;
+                    utterance.onerror = finalizeSentence;
+
+                    window.speechSynthesis.speak(utterance);
+                }, 60);
+                activeTimeouts.push(startTimer);
+            } else {
+                finalizeSentence();
+            }
+        }
+
+        function readAllEx3SentencesSequentially() {
+            if (ex3PendingSeqTimer) {
+                clearTimeout(ex3PendingSeqTimer);
+                ex3PendingSeqTimer = null;
+            }
+            pauseEx3GeneralAudio();
+            resetAllHighlights();
+            isReadingEx3Sequence = true;
+
+            let currentIndex = 0;
+            function playNextInEx3() {
+                if (!isReadingEx3Sequence || currentIndex >= ex3QuestionsData.length) {
+                    const finishedNormally = isReadingEx3Sequence && currentIndex >= ex3QuestionsData.length;
+                    isReadingEx3Sequence = false;
+                    if (isEx3AllAnswered()) {
+                        hasFinishedEx3Completely = true;
+                    }
+                    document.querySelectorAll('#ex3QuestionsList .speech-bubble').forEach(b => {
+                        clearEx3WordHighlights(b);
+                        b.classList.remove('active-speech');
+                    });
+                    hideToast();
+                    if (finishedNormally && isEx3AllAnswered()) {
+                        const startEx4Timer = setTimeout(() => {
+                            readAllEx4RoutineRowsSequentially();
+                        }, 450);
+                        activeTimeouts.push(startEx4Timer);
+                    }
+                    return;
+                }
+
+                const q = ex3QuestionsData[currentIndex];
+                const bubbleEl = document.getElementById(`bubble-ex3-${q.id}`);
+                if (bubbleEl) {
+                    bubbleEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                speakEx3Sentence(q.id, () => {
+                    if (!isReadingEx3Sequence) return;
+                    currentIndex++;
+                    const nextTimer = setTimeout(playNextInEx3, 350);
+                    activeTimeouts.push(nextTimer);
+                });
+            }
+
+            playNextInEx3();
+        }
+
+        function selectEx3Option(qId, chosenOpt) {
+            lastEx3SelectTimestamp = Date.now();
+            if (ex3PendingSeqTimer) {
+                clearTimeout(ex3PendingSeqTimer);
+                ex3PendingSeqTimer = null;
+            }
+            if (isReadingEx3Sequence) {
+                isReadingEx3Sequence = false;
+                resetAllHighlights();
+            }
+
+            const q = ex3QuestionsData.find(item => item.id === qId);
+            if (!q) return;
+
+            q.userChoice = chosenOpt;
+            renderEx3Questions();
+
+            if (chosenOpt === q.correct) {
+                playSuccessChime();
+            }
+
+            const allAnswered = isEx3AllAnswered();
+            const allCorrect = ex3QuestionsData.every(item => item.userChoice === item.correct);
+
+            if (allCorrect) {
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                }
+                ex3PendingSeqTimer = setTimeout(() => {
+                    ex3PendingSeqTimer = null;
+                    readAllEx3SentencesSequentially();
+                }, 350);
+            } else if (allAnswered) {
+                ex3PendingSeqTimer = setTimeout(() => {
+                    ex3PendingSeqTimer = null;
+                    readAllEx3SentencesSequentially();
+                }, 350);
+            } else {
+                speakEx3Sentence(qId);
+            }
+        }
+
+        function revealExercise3Choices() {
+            if (ex3PendingSeqTimer) {
+                clearTimeout(ex3PendingSeqTimer);
+                ex3PendingSeqTimer = null;
+            }
+            ex3QuestionsData.forEach(q => {
+                q.userChoice = q.correct;
+            });
+            renderEx3Questions();
+            playSuccessChime();
+            readAllEx3SentencesSequentially();
+        }
+
+        function resetExercise3Choices() {
+            if (ex3PendingSeqTimer) {
+                clearTimeout(ex3PendingSeqTimer);
+                ex3PendingSeqTimer = null;
+            }
+            isReadingEx3Sequence = false;
+            hasFinishedEx3Completely = false;
+            ex3QuestionsData.forEach(q => {
+                q.userChoice = null;
+            });
+            renderEx3Questions();
+            resetAllHighlights();
+        }
+
+        // ============================================================================
+        // RENDER EXERCISE 4 (Complete the day for you)
+        // ============================================================================
+        function renderRoutineRows() {
+            const container = document.getElementById('routineRowsContainer');
+            if (!container) return;
+
+            container.innerHTML = routineRowsData.map((row, index) => `
+                <div class="grid grid-cols-12 items-center py-3 text-center">
+                    <div class="col-span-5 routine-col-divider px-2 flex items-center justify-center">
+                        <input
+                            type="text"
+                            value="${row.time}"
+                            oninput="updateRoutineRow(${index}, 'time', this.value)"
+                            class="w-full max-w-[140px] bg-white/90 border-2 border-pink-300 focus:border-pink-600 rounded-xl px-2 py-1 text-center font-black text-slate-800 text-sm sm:text-base outline-none shadow-xs"
+                        />
+                    </div>
+                    <div id="routine-cell-${row.id}"
+                         onmouseenter="playRoutineRowAudio(${row.id})"
+                         onclick="playRoutineRowAudio(${row.id})"
+                         class="col-span-7 px-3 py-1.5 routine-activity-cell cursor-pointer flex flex-col items-center justify-center">
+                        ${row.editableWhat ? `
+                            <input
+                                type="text"
+                                value="${row.what}"
+                                oninput="updateRoutineRow(${index}, 'what', this.value)"
+                                onclick="event.stopPropagation(); playRoutineRowAudio(${row.id});"
+                                class="routine-what-input w-full max-w-[230px] bg-white/95 border-2 border-pink-300 focus:border-pink-600 rounded-xl px-2.5 py-1 text-center font-black italic text-slate-900 text-base sm:text-lg outline-none shadow-xs transition"
+                            />
+                        ` : `
+                            <span class="routine-what-text font-black italic text-slate-900 text-base sm:text-xl transition inline-block">
+                                ${row.what}
+                            </span>
+                        `}
+                        <span dir="rtl" class="ar-font text-xs font-bold text-stone-600 mt-0.5 block">
+                            ${row.ar}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+
+            updateRoutineSpeechBubbleText();
+            updateSaveAllButtonVisibility();
+        }
+
+        function playRoutineRowAudio(rowId, onFinished = null, fromSequence = false) {
+            // لا يُقرأ أي نشاط في التمرين الرابع إلا بعد الانتهاء الكامل من التمرين رقم 3
+            if (!canReadExercise4()) {
+                if (onFinished) onFinished();
+                return;
+            }
+
+            if (!fromSequence && isReadingEx4Sequence) {
+                isReadingEx4Sequence = false;
+            }
+
+            const row = routineRowsData.find(r => r.id === rowId);
+            if (!row || !row.what) {
+                if (onFinished) onFinished();
+                return;
+            }
+
+            const cellEl = document.getElementById(`routine-cell-${rowId}`);
+            if (!fromSequence && cellEl && cellEl.classList.contains('active-green-highlight') && window.speechSynthesis && window.speechSynthesis.speaking) {
+                return;
+            }
+
+            isPlayingFullLesson = false;
+            updatePlayBtnUI();
+
+            currentEx4SpeechSession++;
+            const sessionId = currentEx4SpeechSession;
+
+            activeTimeouts.forEach(t => {
+                clearTimeout(t);
+                clearInterval(t);
+            });
+            activeTimeouts = [];
+
+            document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('active-speech'));
+            document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+
+            if ('speechSynthesis' in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+                window.speechSynthesis.cancel();
+            }
+
+            if (cellEl) cellEl.classList.add('active-green-highlight');
+
+            const textToSpeak = row.what.trim();
+            showToast(textToSpeak);
+
+            const calmEducationalRate = Math.min(currentSpeechRate, 0.8);
+            const wordCount = textToSpeak.split(/\s+/).length;
+            const minDuration = Math.max(1250, wordCount * 360);
+            const startTime = Date.now();
+
+            let isDone = false;
+            const finalizeRow = () => {
+                if (isDone || sessionId !== currentEx4SpeechSession) return;
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, minDuration - elapsed);
+
+                const endTimer = setTimeout(() => {
+                    if (isDone || sessionId !== currentEx4SpeechSession) return;
+                    isDone = true;
+                    if (cellEl) cellEl.classList.remove('active-green-highlight');
+                    hideToast();
+                    if (onFinished) onFinished();
+                }, remaining);
+                activeTimeouts.push(endTimer);
+            };
+
+            if ('speechSynthesis' in window) {
+                const startTimer = setTimeout(() => {
+                    if (sessionId !== currentEx4SpeechSession) return;
+                    const allVoices = window.speechSynthesis.getVoices();
+                    const bestVoice = findBestRoutineVoice(allVoices);
+
+                    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                    window.activeUtteranceRef = utterance;
+
+                    if (bestVoice) {
+                        utterance.voice = bestVoice;
+                        utterance.lang = bestVoice.lang || 'en-US';
+                    } else {
+                        utterance.lang = 'en-US';
+                    }
+                    utterance.rate = calmEducationalRate;
+                    utterance.pitch = 1.0;
+
+                    utterance.onend = finalizeRow;
+                    utterance.onerror = finalizeRow;
+
+                    window.speechSynthesis.speak(utterance);
+                }, 55);
+                activeTimeouts.push(startTimer);
+            } else {
+                finalizeRow();
+            }
+        }
+
+        function readAllEx4RoutineRowsSequentially() {
+            if (!canReadExercise4()) return;
+            isReadingEx4Sequence = true;
+            let idx = 0;
+
+            function playNextRow() {
+                if (!isReadingEx4Sequence || idx >= routineRowsData.length) {
+                    isReadingEx4Sequence = false;
+                    document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+                    hideToast();
+                    return;
+                }
+
+                const row = routineRowsData[idx];
+                const cellEl = document.getElementById(`routine-cell-${row.id}`);
+                if (cellEl) {
+                    cellEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                playRoutineRowAudio(row.id, () => {
+                    if (!isReadingEx4Sequence) return;
+                    idx++;
+                    const nextTimer = setTimeout(playNextRow, 320);
+                    activeTimeouts.push(nextTimer);
+                }, true);
+            }
+
+            playNextRow();
+        }
+
+        function updateRoutineRow(idx, field, val) {
+            if (!routineRowsData[idx]) return;
+            routineRowsData[idx][field] = val;
+            updateRoutineSpeechBubbleText();
+        }
+
+        // تحويل الوقت إلى صيغة منطوقة سهلة وواضحة للمتحدث التعليمي بدون تعقيد (مثل six o'clock / six thirty)
+        function formatTimeForSpeech(timeStr) {
+            if (!timeStr) return '';
+            let clean = String(timeStr).replace(/\s*(AM|PM|am|pm|a\.m\.|p\.m\.)\s*/g, '').trim();
+            clean = clean.replace(/^(\d{1,2}):00$/, "$1 o'clock");
+            clean = clean.replace(/^(\d{1,2}):(\d{2})$/, "$1 $2");
+            return clean;
+        }
+
+        function formatTimeForDisplay(timeStr) {
+            if (!timeStr) return '';
+            return String(timeStr).replace(/\s*(AM|PM|am|pm)\s*/g, '').trim();
+        }
+
+        function updateRoutineSpeechBubbleText() {
+            const r = routineRowsData;
+            const displayText = `I ${r[0].what} every morning at ${formatTimeForDisplay(r[0].time)}. I get dressed and ${r[1].what} at ${formatTimeForDisplay(r[1].time)}. Then I ${r[2].what} at ${formatTimeForDisplay(r[2].time)}. In the afternoon, I ${r[3].what} at ${formatTimeForDisplay(r[3].time)}. After dinner, I ${r[4].what} at ${formatTimeForDisplay(r[4].time)}, and I ${r[5].what} at ${formatTimeForDisplay(r[5].time)}. Finally, I ${r[6].what} at ${formatTimeForDisplay(r[6].time)}.`;
+
+            const spokenSentences = [
+                `I ${r[0].what} every morning at ${formatTimeForSpeech(r[0].time)}.`,
+                `I get dressed, and ${r[1].what} at ${formatTimeForSpeech(r[1].time)}.`,
+                `Then, I ${r[2].what} at ${formatTimeForSpeech(r[2].time)}.`,
+                `In the afternoon, I ${r[3].what} at ${formatTimeForSpeech(r[3].time)}.`,
+                `After dinner, I ${r[4].what} at ${formatTimeForSpeech(r[4].time)}, and I ${r[5].what} at ${formatTimeForSpeech(r[5].time)}.`,
+                `Finally, I ${r[6].what} at ${formatTimeForSpeech(r[6].time)}.`
+            ];
+
+            const bubble = document.getElementById('bubble-ex4-routine');
+            const pText = document.getElementById('routineSpeechText');
+            if (bubble) {
+                bubble.setAttribute('data-text', displayText);
+                bubble.setAttribute('data-spoken-sentences', JSON.stringify(spokenSentences));
+            }
+            if (pText) pText.innerText = `"${displayText}"`;
+        }
+
+        function renderEx4BubbleAudioControls() {
+            const container = document.getElementById('ex4BubbleAudioControls');
+            if (!container) return;
+            const hasAudio = Boolean(customAudiosMap.ex4Bubble);
+            container.innerHTML = `
+                <label for="upload-audio-ex4-bubble" class="cursor-pointer w-4 h-4 rounded-full ${hasAudio ? 'bg-emerald-600 text-white border-emerald-700' : 'bg-white/90 hover:bg-lime-50 text-lime-700 border-lime-400'} flex items-center justify-center text-[8px] border transition shadow-2xs" title="تحميل وحفظ مقطع صوتي">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </label>
+                <input type="file" id="upload-audio-ex4-bubble" accept="audio/*" class="hidden" onchange="handleEx4BubbleAudioUpload(event)">
+                ${hasAudio ? `
+                    <button type="button" onmouseenter="playEx4BubbleCustomAudio()" onclick="playEx4BubbleCustomAudio()" class="w-4 h-4 rounded-full bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center text-[7px] border border-teal-700 transition shadow-2xs" title="تشغيل الصوت المحفوظ">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                    <button type="button" onclick="removeEx4BubbleAudio()" class="w-4 h-4 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center text-[7px] border border-rose-200 transition" title="حذف الصوت المحفوظ">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                ` : ''}
+            `;
+            updateSaveAllButtonVisibility();
+        }
+
+        function handleEx4BubbleAudioUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !file.type.startsWith('audio/')) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                customAudiosMap.ex4Bubble = evt.target.result;
+                saveCustomAudiosToStorage();
+                renderEx4BubbleAudioControls();
+                playEx4BubbleCustomAudio();
+                showToast('تم تحميل وحفظ صوت الروتين اليومي بنجاح 🎵✓');
+                setTimeout(hideToast, 2200);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function playEx4BubbleCustomAudio() {
+            // لا يُقرأ التمرين الرابع إلا بعد الانتهاء الكامل من التمرين رقم 3
+            if (!canReadExercise4()) return;
+            if (!customAudiosMap.ex4Bubble) return;
+            resetAllHighlights();
+            const bubbleEl = document.getElementById('bubble-ex4-routine');
+            if (bubbleEl) bubbleEl.classList.add('active-speech');
+
+            activeCardAudioPlayer = new Audio(customAudiosMap.ex4Bubble);
+            activeCardAudioPlayer.onended = () => {
+                if (bubbleEl) bubbleEl.classList.remove('active-speech');
+            };
+            activeCardAudioPlayer.onerror = () => {
+                if (bubbleEl) bubbleEl.classList.remove('active-speech');
+            };
+            activeCardAudioPlayer.play().catch(() => {});
+        }
+
+        function removeEx4BubbleAudio() {
+            customAudiosMap.ex4Bubble = null;
+            saveCustomAudiosToStorage();
+            renderEx4BubbleAudioControls();
+        }
+
+        // اختيار أوضح متحدث تعليمي هادئ وطبيعي لقراءة القطعة
+        function findBestRoutineVoice(voicesList) {
+            if (!voicesList || voicesList.length === 0) return null;
+            const preferredNames = [
+                'clara online (natural)',
+                'sonia online (natural)',
+                'libby online (natural)',
+                'ava multilingual',
+                'emma multilingual',
+                'jenny online (natural)',
+                'aria online (natural)',
+                'william multilingual',
+                'natasha online (natural)',
+                'google uk english female',
+                'google us english',
+                'samantha'
+            ];
+            for (const nameKey of preferredNames) {
+                const found = voicesList.find(v => v.name.toLowerCase().includes(nameKey));
+                if (found) return found;
+            }
+            const anyNatural = voicesList.find(v =>
+                v.lang.toLowerCase().startsWith('en') &&
+                (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online'))
+            );
+            if (anyNatural) return anyNatural;
+
+            return findWilliamAustraliaVoice(voicesList) || voicesList.find(v => v.lang.toLowerCase().startsWith('en')) || null;
+        }
+
+        function speakMyCustomRoutine() {
+            // لا تُقرأ قطعة الروتين اليومي في التمرين الرابع إلا بعد الانتهاء الكامل من التمرين رقم 3
+            if (!canReadExercise4()) return;
+
+            stopAutoPlay();
+            updateRoutineSpeechBubbleText();
+
+            if (customAudiosMap.ex4Bubble) {
+                playEx4BubbleCustomAudio();
+                return;
+            }
+
+            resetAllHighlights();
+            const bubbleEl = document.getElementById('bubble-ex4-routine');
+            if (!bubbleEl) return;
+
+            const displayText = bubbleEl.getAttribute('data-text') || bubbleEl.querySelector('#routineSpeechText')?.innerText || '';
+            let sentences = [];
+            try {
+                sentences = JSON.parse(bubbleEl.getAttribute('data-spoken-sentences') || '[]');
+            } catch (e) {
+                sentences = [displayText];
+            }
+            if (!sentences.length) sentences = [displayText];
+
+            bubbleEl.classList.add('active-speech');
+
+            if (!('speechSynthesis' in window)) {
+                setTimeout(() => {
+                    bubbleEl.classList.remove('active-speech');
+                    hideToast();
+                }, 2000);
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const allVoices = window.speechSynthesis.getVoices();
+            const bestVoice = findBestRoutineVoice(allVoices);
+            // سرعة تعليمية هادئة ومريحة للاستماع والفهم
+            const calmEducationalRate = Math.min(currentSpeechRate, 0.8);
+            const sentenceRowMap = [
+                [1],
+                [2],
+                [3],
+                [4],
+                [5, 6],
+                [7]
+            ];
+
+            let idx = 0;
+            function speakNextSentence() {
+                if (!bubbleEl.classList.contains('active-speech') || idx >= sentences.length) {
+                    bubbleEl.classList.remove('active-speech');
+                    document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+                    hideToast();
+                    return;
+                }
+
+                document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+                const mappedRows = sentenceRowMap[idx] || [];
+                mappedRows.forEach(rId => {
+                    const cellEl = document.getElementById(`routine-cell-${rId}`);
+                    if (cellEl) cellEl.classList.add('active-green-highlight');
+                });
+
+                const currentSentence = sentences[idx];
+                showToast(currentSentence);
+
+                const utterance = new SpeechSynthesisUtterance(currentSentence);
+                window.activeUtteranceRef = utterance;
+                if (bestVoice) {
+                    utterance.voice = bestVoice;
+                    utterance.lang = bestVoice.lang || 'en-US';
+                } else {
+                    utterance.lang = 'en-US';
+                }
+                utterance.rate = calmEducationalRate;
+                utterance.pitch = 1.0;
+
+                utterance.onend = () => {
+                    idx++;
+                    if (idx < sentences.length) {
+                        const pauseTimer = setTimeout(speakNextSentence, 380);
+                        activeTimeouts.push(pauseTimer);
+                    } else {
+                        bubbleEl.classList.remove('active-speech');
+                        document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+                        hideToast();
+                    }
+                };
+
+                utterance.onerror = () => {
+                    bubbleEl.classList.remove('active-speech');
+                    document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+                    hideToast();
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+
+            speakNextSentence();
+        }
+
+        // ============================================================================
+        // VOICE ENGINE & SYNCHRONIZED STATIC HIGHLIGHTING
+        // ============================================================================
+        const allDialogues = [
+            { id: 'bubble-ex3-1' },
+            { id: 'bubble-ex3-2' },
+            { id: 'bubble-ex3-3' },
+            { id: 'bubble-ex3-4' },
+            { id: 'bubble-ex3-5' }
+        ];
+
+        function findWilliamAustraliaVoice(voicesList) {
+            if (!voicesList || voicesList.length === 0) return null;
+
+            let match = voicesList.find(v =>
+                v.name.toLowerCase().includes('william') &&
+                v.name.toLowerCase().includes('multilingual')
+            );
+            if (match) return match;
+
+            match = voicesList.find(v =>
+                v.name.toLowerCase().includes('william') &&
+                (v.lang.toLowerCase().includes('au') || v.name.toLowerCase().includes('australia'))
+            );
+            if (match) return match;
+
+            match = voicesList.find(v => v.name.toLowerCase().includes('william'));
+            if (match) return match;
+
+            match = voicesList.find(v =>
+                v.lang.toLowerCase() === 'en-au' &&
+                (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online'))
+            );
+            if (match) return match;
+
+            match = voicesList.find(v => v.lang.toLowerCase().startsWith('en-au'));
+            if (match) return match;
+
+            return null;
+        }
+
+        function populateVoiceList() {
+            updateSpeakerDisplay(LOCKED_VOICE_LABEL);
+            if (!('speechSynthesis' in window)) return;
+            const voices = window.speechSynthesis.getVoices();
+            if (!voices || voices.length === 0) return;
+
+            availableVoices = voices.filter(v => v.lang.toLowerCase().startsWith('en'));
+
+            const williamVoice = findWilliamAustraliaVoice(voices) || findWilliamAustraliaVoice(availableVoices);
+            if (williamVoice) {
+                lockedNativeVoice = williamVoice;
+            } else if (!lockedNativeVoice && availableVoices.length > 0) {
+                lockedNativeVoice = availableVoices[0];
+            }
+
+            updateSpeakerDisplay(LOCKED_VOICE_LABEL);
+        }
+
+        function updateSpeakerDisplay() {
+            const badge = document.getElementById('speakerBadgeName');
+            const navBadge = document.getElementById('navSpeakerName');
+            const footerBadge = document.getElementById('footerSpeakerName');
+
+            if (badge) badge.innerText = LOCKED_VOICE_LABEL;
+            if (navBadge) navBadge.innerText = LOCKED_VOICE_LABEL;
+            if (footerBadge) footerBadge.innerText = LOCKED_VOICE_LABEL;
+        }
+
+        function playSuccessChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.14, ctx.currentTime + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + idx * 0.08);
+                    osc.stop(ctx.currentTime + idx * 0.08 + 0.26);
+                });
+            } catch (e) {}
+        }
+
+        function speakSentenceWithLockedVoice(text, onFinished) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+
+                const allVoices = window.speechSynthesis.getVoices();
+                const williamVoice = findWilliamAustraliaVoice(allVoices);
+                if (williamVoice) {
+                    lockedNativeVoice = williamVoice;
+                }
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                if (lockedNativeVoice) {
+                    utterance.voice = lockedNativeVoice;
+                    utterance.lang = lockedNativeVoice.lang || 'en-AU';
+                } else {
+                    utterance.lang = 'en-AU';
+                }
+                utterance.rate = currentSpeechRate;
+                utterance.pitch = 1.0;
+
+                let finished = false;
+                utterance.onend = () => {
+                    if (finished) return;
+                    finished = true;
+                    if (onFinished) onFinished();
+                };
+                utterance.onerror = () => {
+                    if (finished) return;
+                    finished = true;
+                    if (onFinished) onFinished();
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else if (onFinished) {
+                setTimeout(onFinished, 1200);
+            }
+        }
+
+        function readBubbleTwice(bubbleId, onFinished = null) {
+            if (bubbleId.startsWith('bubble-ex3-')) {
+                const qId = parseInt(bubbleId.replace('bubble-ex3-', ''), 10);
+                const q = ex3QuestionsData.find(item => item.id === qId);
+                if (!q || !q.userChoice) {
+                    if (onFinished) onFinished();
+                    return;
+                }
+                speakEx3Sentence(qId, onFinished);
+                return;
+            }
+            if (onFinished) onFinished();
+        }
+
+        function readBubble(bubbleId) {
+            stopAutoPlay();
+            readBubbleTwice(bubbleId);
+        }
+
+        function resetAllHighlights() {
+            activeTimeouts.forEach(t => {
+                clearTimeout(t);
+                clearInterval(t);
+            });
+            activeTimeouts = [];
+            isReadingEx3Sequence = false;
+            isReadingEx4Sequence = false;
+            currentEx4SpeechSession++;
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (activeCardAudioPlayer) {
+                activeCardAudioPlayer.pause();
+                activeCardAudioPlayer = null;
+            }
+            document.querySelectorAll('.speech-bubble').forEach(b => {
+                b.classList.remove('active-speech');
+                clearEx3WordHighlights(b);
+            });
+            document.querySelectorAll('.routine-activity-cell').forEach(c => c.classList.remove('active-green-highlight'));
+            hideToast();
+        }
+
+        function speakSingleText(text) {
+            stopAutoPlay();
+            showToast(text);
+            speakSentenceWithLockedVoice(text, () => hideToast());
+        }
+
+        function togglePlayFullLesson() {
+            if (isPlayingFullLesson) {
+                stopAutoPlay();
+            } else {
+                resetAllHighlights();
+                isPlayingFullLesson = true;
+                currentFullIndex = 0;
+                updatePlayBtnUI();
+                playNextDialogueSequence();
+            }
+        }
+
+        function stopAutoPlay() {
+            isPlayingFullLesson = false;
+            resetAllHighlights();
+            updatePlayBtnUI();
+        }
+
+        function updatePlayBtnUI() {
+            const btn = document.getElementById('playAllBtn');
+            const icon = document.getElementById('playAllIcon');
+            const text = document.getElementById('playAllText');
+            if (!btn) return;
+
+            if (isPlayingFullLesson) {
+                icon.className = 'fa-solid fa-stop';
+                text.innerText = 'Pause Reading';
+                btn.classList.replace('from-emerald-500', 'from-rose-500');
+                btn.classList.replace('to-teal-600', 'to-red-600');
+            } else {
+                icon.className = 'fa-solid fa-play';
+                text.innerText = 'Auto Read (Repeat 2x)';
+                btn.classList.replace('from-rose-500', 'from-emerald-500');
+                btn.classList.replace('to-red-600', 'to-teal-600');
+            }
+        }
+
+        function playNextDialogueSequence() {
+            if (!isPlayingFullLesson || currentFullIndex >= allDialogues.length) {
+                stopAutoPlay();
+                if (typeof confetti === 'function' && currentFullIndex >= allDialogues.length) {
+                    confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+                }
+                return;
+            }
+
+            const current = allDialogues[currentFullIndex];
+            const bubble = document.getElementById(current.id);
+            if (bubble) bubble.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            readBubbleTwice(current.id, () => {
+                if (isPlayingFullLesson) {
+                    currentFullIndex++;
+                    const nextTimer = setTimeout(playNextDialogueSequence, 450);
+                    activeTimeouts.push(nextTimer);
+                }
+            });
+        }
+
+        function toggleSpeechRate() {
+            const display = document.getElementById('speedDisplay');
+            if (currentSpeechRate === 0.75) {
+                currentSpeechRate = 0.6;
+                if (display) display.innerText = 'Slow (0.6x)';
+            } else if (currentSpeechRate === 0.6) {
+                currentSpeechRate = 0.9;
+                if (display) display.innerText = 'Normal (0.9x)';
+            } else {
+                currentSpeechRate = 0.75;
+                if (display) display.innerText = 'Calm (0.75x)';
+            }
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('liveReadingToast');
+            const toastText = document.getElementById('toastWord');
+            if (toastText) toastText.innerText = text;
+            if (toast) {
+                toast.classList.remove('opacity-0', 'translate-y-8');
+                toast.classList.add('opacity-100', 'translate-y-0');
+            }
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('liveReadingToast');
+            if (toast) {
+                toast.classList.add('opacity-0', 'translate-y-8');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }
+        }
+
+        // تفعيل التشغيل التلقائي المباشر فور فتح الصفحة أو عند أول حركة للماوس بدون نقر
+        let directAudioStarted = false;
+        function enableFirstGestureAutoPlay(callback) {
+            const trigger = () => {
+                if (!directAudioStarted) {
+                    directAudioStarted = true;
+                    if (callback) callback();
+                }
+                window.removeEventListener('mousemove', trigger);
+                window.removeEventListener('touchstart', trigger);
+                window.removeEventListener('keydown', trigger);
+            };
+            window.addEventListener('mousemove', trigger, { once: true });
+            window.addEventListener('touchstart', trigger, { once: true });
+            window.addEventListener('keydown', trigger, { once: true });
+        }
+
+        function startDirectAutoAudioOnLoad() {
+            if (customAudiosMap.ex2) {
+                const player2 = document.getElementById('custom-audio-player-ex2');
+                if (player2) {
+                    player2.play().then(() => { directAudioStarted = true; }).catch(() => {
+                        enableFirstGestureAutoPlay(() => player2.play().catch(() => {}));
+                    });
+                    return;
+                }
+            }
+            if (customAudiosMap.ex3 && isEx2Completed()) {
+                const player3 = document.getElementById('custom-audio-player-ex3');
+                if (player3) {
+                    player3.play().then(() => { directAudioStarted = true; }).catch(() => {
+                        enableFirstGestureAutoPlay(() => player3.play().catch(() => {}));
+                    });
+                    return;
+                }
+            }
+            const firstCardWithAudio = ex2CardsData.find(c => Boolean(c.customAudio));
+            if (firstCardWithAudio) {
+                playCardCustomAudio(firstCardWithAudio.letter);
+            }
+        }
+
+        function applyEmbeddedMediaIfPresent() {
+            if (!window.__EMBEDDED_SAVED_MEDIA__) return;
+            const data = window.__EMBEDDED_SAVED_MEDIA__;
+            if (data.ex2Images) {
+                ex2CardsData.forEach(c => {
+                    if (data.ex2Images[c.letter]) c.customImg = data.ex2Images[c.letter];
+                });
+                if (data.ex2Images['ex4_girl']) ex4GirlCustomImg = data.ex2Images['ex4_girl'];
+                if (data.ex2Images['ex1_boy_a']) ex1BoyACustomImg = data.ex2Images['ex1_boy_a'];
+                if (data.ex2Images['ex1_boy_b']) ex1BoyBCustomImg = data.ex2Images['ex1_boy_b'];
+            }
+            if (data.ex2Audios) {
+                ex2CardsData.forEach(c => {
+                    if (data.ex2Audios[c.letter]) c.customAudio = data.ex2Audios[c.letter];
+                });
+            }
+            if (data.ex3Audios) {
+                ex3QuestionsData.forEach(q => {
+                    if (data.ex3Audios[q.id]) q.customAudio = data.ex3Audios[q.id];
+                });
+            }
+            if (data.routineAudios) {
+                routineRowsData.forEach(r => {
+                    if (data.routineAudios[r.id]) r.customAudio = data.routineAudios[r.id];
+                });
+            }
+            if (data.sectionAudios) {
+                if (data.sectionAudios.ex2) {
+                    customAudiosMap.ex2 = data.sectionAudios.ex2;
+                    applyCustomAudioUI('ex2', data.sectionAudios.ex2, false);
+                }
+                if (data.sectionAudios.ex3) {
+                    customAudiosMap.ex3 = data.sectionAudios.ex3;
+                    applyCustomAudioUI('ex3', data.sectionAudios.ex3, false);
+                }
+                if (data.sectionAudios.ex4) {
+                    customAudiosMap.ex4 = data.sectionAudios.ex4;
+                    applyCustomAudioUI('ex4', data.sectionAudios.ex4, false);
+                }
+                if (data.sectionAudios.ex4Bubble) {
+                    customAudiosMap.ex4Bubble = data.sectionAudios.ex4Bubble;
+                }
+            }
+        }
+
+        window.onload = async function() {
+            applyEmbeddedMediaIfPresent();
+            await loadEx2ImagesFromStorage();
+            await loadCustomAudiosFromStorage();
+            renderEx2Cards();
+            renderEx3Questions();
+            renderRoutineRows();
+            renderEx1Avatars();
+            renderEx4GirlAvatar();
+            renderEx4BubbleAudioControls();
+            populateVoiceList();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    populateVoiceList();
+                };
+            }
+            startDirectAutoAudioOnLoad();
+        };
+    </script>
+</body>
+</html>
